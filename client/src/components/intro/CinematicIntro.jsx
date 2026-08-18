@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import logoImg from '../../assets/logo.png'
+import logoImg from '../../assets/logo.webp'
 
 // ─── Easing ────────────────────────────────────────────────────────────────
 const EXPO = [0.16, 1, 0.3, 1]
