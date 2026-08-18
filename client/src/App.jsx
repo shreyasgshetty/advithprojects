@@ -6,7 +6,9 @@ import PublicLayout from './layouts/PublicLayout'
 import Home from './pages/website/Home'
 import About from './pages/website/About'
 import Services from './pages/website/Services'
+import ServiceDetail from './pages/website/ServiceDetail'
 import Projects from './pages/website/Projects'
+import ProjectDetail from './pages/website/ProjectDetail'
 import Contact from './pages/website/Contact'
 
 function App() {
@@ -27,7 +29,9 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/services/:slug" element={<ServiceDetail />} />
                 <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:slug" element={<ProjectDetail />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<Home />} />
               </Route>

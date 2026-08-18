@@ -1,22 +1,81 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { NavLink, Link } from 'react-router-dom'
-import { PhoneCall, Menu } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { PhoneCall, Menu, ChevronDown, Building2, Compass, Layers } from 'lucide-react'
 import logoImg from '../../assets/logo.webp'
 import MobileNavigation from './MobileNavigation'
 
 const EXPO = [0.16, 1, 0.3, 1]
 const EASE = [0.22, 1, 0.36, 1]
 
-const navItems = [
-  { name: 'Services', path: '/services' },
-  { name: 'Projects', path: '/projects' },
-  { name: 'About', path: '/about' },
-  { name: 'Contact', path: '/contact' },
+const serviceDropdownItems = [
+  {
+    icon: Building2,
+    name: 'Civil Construction',
+    desc: 'End-to-end construction solutions focused on structural quality, execution, safety, and timely delivery.',
+    path: '/services/construction',
+    bgClass: 'bg-red-50',
+    textClass: 'text-red-600',
+  },
+  {
+    icon: Compass,
+    name: 'Architecture',
+    desc: 'Thoughtful architectural planning combining functionality, aesthetics, engineering, and site context.',
+    path: '/services/architecture',
+    bgClass: 'bg-amber-50',
+    textClass: 'text-amber-600',
+  },
+  {
+    icon: Layers,
+    name: 'Interior Design',
+    desc: 'Complete interior environments combining materials, lighting, spatial planning, detailing, and execution.',
+    path: '/services/interiors',
+    bgClass: 'bg-rose-50',
+    textClass: 'text-rose-600',
+  },
 ]
+
+const dropdownVariants = {
+  hidden: { opacity: 0, y: -8, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } },
+  exit: { opacity: 0, y: -6, scale: 0.98, transition: { duration: 0.15 } },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -8 },
+  visible: (i) => ({ opacity: 1, x: 0, transition: { delay: i * 0.06, duration: 0.25, ease: [0.22, 1, 0.36, 1] } }),
+}
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const dropdownRef = useRef(null)
+  const navigate = useNavigate()
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setServicesOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Close dropdown on Escape
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === 'Escape') setServicesOpen(false)
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [])
+
+  const handleServiceNavigate = (path) => {
+    setServicesOpen(false)
+    navigate(path)
+  }
 
   return (
     <>
@@ -30,7 +89,7 @@ export default function Navbar() {
         />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* Brand Logo with shared layoutId transition */}
+          {/* Brand Logo */}
           <Link to="/" className="flex items-center" aria-label="Advith Projects Home">
             <motion.img
               layoutId="advith-logo"
@@ -41,14 +100,105 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
-            {navItems.map((item, i) => (
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            {/* Services with dropdown */}
+            <motion.div
+              ref={dropdownRef}
+              className="relative"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.45, ease: EXPO }}
+            >
+              <button
+                type="button"
+                onClick={() => setServicesOpen((v) => !v)}
+                onMouseEnter={() => setServicesOpen(true)}
+                className={`flex items-center gap-1 transition-colors duration-200 hover:text-red-600 focus:outline-none ${
+                  servicesOpen ? 'text-red-600' : 'text-slate-600'
+                }`}
+                aria-haspopup="true"
+                aria-expanded={servicesOpen}
+                aria-label="Services menu"
+              >
+                Services
+                <motion.span
+                  animate={{ rotate: servicesOpen ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </motion.span>
+              </button>
+
+              {/* Dropdown panel */}
+              <AnimatePresence>
+                {servicesOpen && (
+                  <motion.div
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[520px] bg-white rounded-2xl shadow-xl border border-slate-100 p-2 z-50"
+                    variants={dropdownVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    onMouseLeave={() => setServicesOpen(false)}
+                    role="menu"
+                  >
+                    <div className="grid grid-cols-1 divide-y divide-slate-50">
+                      {serviceDropdownItems.map((item, i) => {
+                        const Icon = item.icon
+                        return (
+                          <motion.button
+                            key={item.path}
+                            type="button"
+                            custom={i}
+                            variants={itemVariants}
+                            initial="hidden"
+                            animate="visible"
+                            onClick={() => handleServiceNavigate(item.path)}
+                            className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition-colors text-left w-full group focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
+                            role="menuitem"
+                          >
+                            <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${item.bgClass} ${item.textClass}`}>
+                              <Icon className="w-5 h-5" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-semibold text-slate-900 text-sm group-hover:text-red-600 transition-colors">
+                                {item.name}
+                              </p>
+                              <p className="text-xs text-slate-500 mt-0.5 leading-relaxed line-clamp-2">
+                                {item.desc}
+                              </p>
+                            </div>
+                            <ChevronDown className="w-4 h-4 text-slate-300 -rotate-90 group-hover:text-red-400 transition-colors shrink-0 mt-0.5" />
+                          </motion.button>
+                        )
+                      })}
+                    </div>
+                    {/* All services link */}
+                    <div className="mt-1 pt-2 border-t border-slate-50">
+                      <button
+                        type="button"
+                        onClick={() => handleServiceNavigate('/services')}
+                        className="w-full text-center text-xs font-semibold text-slate-400 hover:text-red-600 transition-colors py-2 focus:outline-none"
+                      >
+                        View All Services →
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Other nav links */}
+            {[
+              { name: 'Projects', path: '/projects', delay: 0.52 },
+              { name: 'About', path: '/about', delay: 0.59 },
+              { name: 'Contact', path: '/contact', delay: 0.66 },
+            ].map((item) => (
               <motion.div
                 key={item.path}
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 + i * 0.07, duration: 0.45, ease: EXPO }}
+                transition={{ delay: item.delay, duration: 0.45, ease: EXPO }}
               >
                 <NavLink
                   to={item.path}
@@ -64,9 +214,8 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Action Button (Desktop) & Hamburger Menu (Mobile) */}
+          {/* CTA + Mobile toggle */}
           <div className="flex items-center gap-3">
-            {/* Desktop CTA */}
             <motion.div
               className="hidden sm:block"
               initial={{ opacity: 0, scale: 0.95 }}
@@ -82,7 +231,6 @@ export default function Navbar() {
               </Link>
             </motion.div>
 
-            {/* Mobile Menu Trigger */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
@@ -96,7 +244,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Drawer */}
       <MobileNavigation
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
