@@ -14,7 +14,7 @@
 
 For business inquiries or collaboration, reach out via the contact form on the site or through:
 
-- **Email:** advithprojects@gmail.com
+- **Email:** projectsadvith@gmail.com
 - **Phone:** +91 8277339115
 
 ---
