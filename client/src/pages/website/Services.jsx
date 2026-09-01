@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { useReducedMotion, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Building2, Compass, Layers, ArrowRight, ChevronRight, MessageCircle } from 'lucide-react'
 import { services } from '../../data/services'
@@ -29,9 +29,13 @@ const CAP_DOT_CLASS = {
 
 const SERVICE_NUMBER = { construction: '01', architecture: '02', interiors: '03' }
 
-function rev(delay = 0) {
+/**
+ * Scroll-reveal helper — used for below-the-fold content.
+ * Hero content uses explicit initial/animate (not whileInView).
+ */
+function rev(delay = 0, distance = 24) {
   return {
-    initial: { opacity: 0, y: 24 },
+    initial: { opacity: 0, y: distance },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: '-60px' },
     transition: { duration: 0.65, delay, ease: EXPO },
@@ -79,83 +83,116 @@ const HOW_STEPS = [
   },
 ]
 
+/**
+ * Cinematic hero entrance — staged reveal sequence:
+ * Grid (0s) → Breadcrumb (0.05s) → Badge (0.12s) → H1 (0.22s) → Body (0.38s) → CTAs (0.52s)
+ *
+ * Uses `animate` (not `whileInView`) since this is above-the-fold content.
+ * useReducedMotion removes all y-movement for users who prefer reduced motion.
+ */
+function HeroSection({ shouldReduceMotion }) {
+  const mk = (delay, y = 28) => ({
+    initial: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y },
+    animate: shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 },
+    transition: { duration: shouldReduceMotion ? 0.3 : 0.7, delay: shouldReduceMotion ? delay * 0.3 : delay, ease: EXPO },
+  })
+
+  return (
+    <section className="relative overflow-hidden bg-slate-900 py-24 lg:py-36">
+      {/* Blueprint grid — fades in first */}
+      <motion.div
+        className="absolute inset-0"
+        style={HERO_GRID_BG}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: shouldReduceMotion ? 0.3 : 0.9, ease: EXPO }}
+      />
+
+      {/* Red glow — top right */}
+      <motion.div
+        className="absolute -top-20 right-0 w-[560px] h-[560px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(239,68,68,0.11) 0%, transparent 62%)' }}
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: shouldReduceMotion ? 0.3 : 1.1, delay: 0.1, ease: EXPO }}
+        aria-hidden="true"
+      />
+      {/* Red glow — bottom left */}
+      <div
+        className="absolute -bottom-40 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(239,68,68,0.06) 0%, transparent 65%)' }}
+        aria-hidden="true"
+      />
+
+      <div className="relative max-w-5xl mx-auto px-6 lg:px-8 text-center">
+        {/* Breadcrumb */}
+        <motion.nav
+          className="flex items-center justify-center gap-2 text-xs text-slate-400 mb-8 uppercase tracking-widest"
+          aria-label="Breadcrumb"
+          {...mk(0.05, 12)}
+        >
+          <Link to="/" className="hover:text-white transition-colors">Home</Link>
+          <ChevronRight className="w-3 h-3" aria-hidden="true" />
+          <span className="text-slate-300" aria-current="page">Services</span>
+        </motion.nav>
+
+        {/* Badge / eyebrow */}
+        <motion.div
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-800/40 bg-red-900/30 text-red-400 text-xs font-semibold uppercase tracking-widest mb-7"
+          {...mk(0.12, 16)}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />
+          Construction · Architecture · Interiors
+        </motion.div>
+
+        {/* Main heading — largest, most weight */}
+        <motion.h1
+          className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight mb-6"
+          {...mk(0.22, 32)}
+        >
+          Design.{' '}
+          <span className="text-red-400">Build.</span>{' '}
+          Transform.
+        </motion.h1>
+
+        {/* Supporting copy */}
+        <motion.p
+          className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl mx-auto mb-10"
+          {...mk(0.38, 20)}
+        >
+          From architectural planning to construction and interiors, Advith Projects brings the
+          entire journey together under one coordinated team — ensuring quality, continuity, and
+          accountability across every phase.
+        </motion.p>
+
+        {/* CTAs — last to appear */}
+        <motion.div className="flex flex-wrap gap-4 justify-center" {...mk(0.52, 16)}>
+          <Link
+            to="/contact"
+            className="flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-2xl shadow-lg shadow-red-500/20 transition-all"
+          >
+            Get a Quote
+            <ArrowRight className="w-4 h-4" aria-hidden="true" />
+          </Link>
+          <Link
+            to="/projects"
+            className="px-7 py-3.5 border border-white/20 hover:border-white/40 text-white font-medium text-sm rounded-2xl transition-all hover:bg-white/5"
+          >
+            Explore Projects
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 export default function ServicesPage() {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <div className="antialiased">
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-slate-900 py-24 lg:py-36">
-        {/* Blueprint grid */}
-        <div className="absolute inset-0 opacity-100" style={HERO_GRID_BG} />
-        {/* Red glow — top right */}
-        <div
-          className="absolute -top-20 right-0 w-[560px] h-[560px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(239,68,68,0.11) 0%, transparent 62%)' }}
-        />
-        {/* Red glow — bottom left */}
-        <div
-          className="absolute -bottom-40 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(239,68,68,0.06) 0%, transparent 65%)' }}
-        />
-
-        <div className="relative max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          {/* Breadcrumb */}
-          <motion.nav
-            className="flex items-center justify-center gap-2 text-xs text-slate-400 mb-8 uppercase tracking-widest"
-            aria-label="Breadcrumb"
-            {...rev(0)}
-          >
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3" aria-hidden="true" />
-            <span className="text-slate-300" aria-current="page">Services</span>
-          </motion.nav>
-
-          {/* Badge */}
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-800/40 bg-red-900/30 text-red-400 text-xs font-semibold uppercase tracking-widest mb-7"
-            {...rev(0.05)}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />
-            Construction · Architecture · Interiors
-          </motion.div>
-
-          {/* Heading */}
-          <motion.h1
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight mb-6"
-            {...rev(0.1)}
-          >
-            Design.{' '}
-            <span className="text-red-400">Build.</span>{' '}
-            Transform.
-          </motion.h1>
-
-          {/* Sub */}
-          <motion.p
-            className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl mx-auto mb-10"
-            {...rev(0.18)}
-          >
-            From architectural planning to construction and interiors, Advith Projects brings the
-            entire journey together under one coordinated team — ensuring quality, continuity, and
-            accountability across every phase.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div className="flex flex-wrap gap-4 justify-center" {...rev(0.26)}>
-            <Link
-              to="/contact"
-              className="flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-2xl shadow-lg shadow-red-500/20 transition-all"
-            >
-              Get a Quote
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
-            <Link
-              to="/projects"
-              className="px-7 py-3.5 border border-white/20 hover:border-white/40 text-white font-medium text-sm rounded-2xl transition-all hover:bg-white/5"
-            >
-              Explore Projects
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <HeroSection shouldReduceMotion={!!shouldReduceMotion} />
 
       {/* ── SERVICE CARDS ─────────────────────────────────────────── */}
       <section className="py-20 lg:py-28 bg-white">
@@ -178,11 +215,15 @@ export default function ServicesPage() {
               return (
                 <motion.article
                   key={service.slug}
-                  className="group flex flex-col bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:border-slate-200 transition-all overflow-hidden"
-                  initial={{ opacity: 0, y: 24 }}
+                  className="group flex flex-col bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden"
+                  initial={{ opacity: 0, y: 28 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.6, delay: i * 0.12, ease: EXPO }}
+                  transition={{ duration: 0.65, delay: i * 0.13, ease: EXPO }}
+                  /* Subtle hover elevation — no scale, no dramatic movement */
+                  whileHover={shouldReduceMotion ? {} : { y: -3, boxShadow: '0 12px 32px -8px rgba(15,23,42,0.12), 0 2px 8px -2px rgba(15,23,42,0.06)', borderColor: 'rgba(226,232,240,1)', transition: { duration: 0.25, ease: EXPO } }}
+                  /* Tap feedback on mobile */
+                  whileTap={shouldReduceMotion ? {} : { y: -1, transition: { duration: 0.12 } }}
                 >
                   {/* Colored top accent line */}
                   <div className={`h-0.5 w-full ${accentClass} opacity-70`} aria-hidden="true" />
@@ -190,12 +231,14 @@ export default function ServicesPage() {
                   <div className="p-7 flex-1 flex flex-col">
                     {/* Icon + number row */}
                     <div className="flex items-center justify-between mb-6">
-                      <div
+                      <motion.div
                         className={`w-14 h-14 rounded-2xl flex items-center justify-center ${service.bgClass} ${service.textClass}`}
+                        /* Icon lifts subtly on hover */
+                        whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: 0.2 } }}
                       >
                         <Icon className="w-7 h-7" aria-hidden="true" />
-                      </div>
-                      <span className={`text-3xl font-black ${service.textClass} opacity-10`} aria-hidden="true">
+                      </motion.div>
+                      <span className={`text-3xl font-black ${service.textClass} opacity-10 group-hover:opacity-20 transition-opacity duration-300`} aria-hidden="true">
                         {num}
                       </span>
                     </div>
@@ -224,11 +267,11 @@ export default function ServicesPage() {
                     </ul>
                   </div>
 
-                  {/* Footer CTA */}
+                  {/* Footer CTA — arrow moves on card hover */}
                   <div className={`px-7 py-5 border-t ${service.borderClass} bg-slate-50/60`}>
                     <Link
                       to={service.path}
-                      className={`flex items-center gap-2 text-sm font-semibold ${service.textClass} group-hover:gap-3 transition-all`}
+                      className={`flex items-center gap-2 text-sm font-semibold ${service.textClass} group-hover:gap-3 transition-all duration-200`}
                       aria-label={`Explore ${service.title}`}
                     >
                       Explore {service.shortTitle}
@@ -261,25 +304,30 @@ export default function ServicesPage() {
             </h2>
           </motion.div>
 
+          {/* Steps — staggered entrance + animated connector lines */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {HOW_STEPS.map((s, i) => (
               <motion.div
                 key={s.step}
                 className="relative"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.55, ease: EXPO }}
+                transition={{ delay: i * 0.12, duration: 0.6, ease: EXPO }}
               >
-                {/* Connector line (desktop) */}
+                {/* Connector line — animated width from 0 to full */}
                 {i < HOW_STEPS.length - 1 && (
-                  <div
-                    className="hidden lg:block absolute top-5 h-px bg-slate-700 z-0"
+                  <motion.div
+                    className="hidden lg:block absolute top-5 h-px bg-gradient-to-r from-slate-700 to-red-800/40 z-0"
                     style={{ left: 'calc(2.75rem + 12px)', right: '-16px' }}
+                    initial={{ scaleX: 0, originX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 + i * 0.12, duration: 0.55, ease: EXPO }}
                     aria-hidden="true"
                   />
                 )}
-                <div className="relative z-10 p-5 bg-slate-800 rounded-2xl border border-slate-700 h-full">
+                <div className="relative z-10 p-5 bg-slate-800 rounded-2xl border border-slate-700 h-full hover:border-slate-600 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center mb-4">
                     <span className="text-xs font-bold text-white" aria-hidden="true">{s.step}</span>
                   </div>
@@ -290,7 +338,7 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          <motion.div className="text-center mt-12" {...rev(0.35)}>
+          <motion.div className="text-center mt-12" {...rev(0.5)}>
             <Link
               to="/about"
               className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"

@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const EXPO = [0.16, 1, 0.3, 1]
 
-function rev(delay = 0) {
+function rev(delay = 0, distance = 20) {
   return {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: distance },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: '-40px' },
     transition: { duration: 0.6, delay, ease: EXPO },
@@ -27,13 +27,20 @@ const GRID_BG = {
 
 /**
  * IntegrationDiagram — "One Team. No Gaps."
- * Visual comparison of the traditional multi-vendor approach vs.
- * Advith Projects' integrated single-team model.
  *
- * Desktop: side-by-side columns.
+ * Progressive reveal sequence:
+ *   1. Header (0s)
+ *   2. Traditional flow column (0.1s) — all traditional nodes appear together
+ *   3. Advith column (0.2s) — Advith block appears with its connecting arrows
+ *   4. "One Team" central element scales in with slight pop (0.35s)
+ *   5. Footer points (0.45s)
+ *
  * Mobile: stacked.
+ * Desktop: side-by-side.
  */
 export default function IntegrationDiagram() {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <section className="py-20 lg:py-24 bg-slate-50 relative overflow-hidden">
       {/* Blueprint grid overlay */}
@@ -57,6 +64,10 @@ export default function IntegrationDiagram() {
         {/* Comparison columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 items-stretch">
           {/* ── Traditional ── */}
+          {/*
+           * Stage 2: Traditional flow enters at delay 0.1.
+           * Each vendor node is rendered together as a group (not individually).
+           */}
           <motion.div
             className="flex flex-col p-7 bg-white rounded-2xl border border-slate-100 shadow-sm"
             {...rev(0.1)}
@@ -110,12 +121,22 @@ export default function IntegrationDiagram() {
           </motion.div>
 
           {/* ── Advith ── */}
+          {/*
+           * Stage 3: Advith column reveals at delay 0.2.
+           * The "One Team" central box gets a subtle scale-in pop to emphasize it.
+           */}
           <motion.div
             className="flex flex-col p-7 bg-white rounded-2xl border border-red-100 shadow-sm relative overflow-hidden"
             {...rev(0.2)}
           >
-            {/* Top accent bar */}
-            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-70" />
+            {/* Top accent bar — animates from center out */}
+            <motion.div
+              className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-70"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldReduceMotion ? 0.2 : 0.7, delay: 0.35, ease: EXPO }}
+            />
 
             <p className="text-xs font-semibold text-red-600 uppercase tracking-widest mb-6">
               Advith Projects
@@ -133,23 +154,36 @@ export default function IntegrationDiagram() {
                 <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[6px] border-l-transparent border-r-transparent border-t-red-200" />
               </div>
 
-              {/* Advith integrated box */}
-              <div className="w-full max-w-xs p-5 rounded-2xl bg-slate-900">
+              {/*
+               * Stage 4: "One Team" block — slight scale pop for visual emphasis.
+               * Communicates the central idea: all under one coordinated entity.
+               */}
+              <motion.div
+                className="w-full max-w-xs p-5 rounded-2xl bg-slate-900"
+                initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+                whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: shouldReduceMotion ? 0.3 : 0.5, delay: 0.38, ease: EXPO }}
+              >
                 <p className="text-white font-bold text-sm text-center mb-4">Advith Projects</p>
                 <div className="flex flex-wrap gap-2 justify-center">
-                  {ADVITH_DISCIPLINES.map((d) => (
-                    <span
+                  {ADVITH_DISCIPLINES.map((d, di) => (
+                    <motion.span
                       key={d}
                       className="px-3 py-1.5 rounded-full bg-white/10 text-white text-xs font-medium"
+                      initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
+                      whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.35, delay: 0.45 + di * 0.07, ease: EXPO }}
                     >
                       {d}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
                 <p className="text-slate-400 text-xs text-center mt-3 leading-relaxed">
                   One team. One conversation. One responsibility.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Arrow */}
               <div className="flex flex-col items-center py-1.5">
@@ -158,9 +192,15 @@ export default function IntegrationDiagram() {
               </div>
 
               {/* Result */}
-              <div className="w-full max-w-xs px-5 py-3 bg-red-50 border border-red-100 rounded-xl text-sm font-semibold text-red-700 text-center">
+              <motion.div
+                className="w-full max-w-xs px-5 py-3 bg-red-50 border border-red-100 rounded-xl text-sm font-semibold text-red-700 text-center"
+                initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: 0.55, ease: EXPO }}
+              >
                 Complete Delivery
-              </div>
+              </motion.div>
             </div>
 
             <div className="pt-4 border-t border-red-50 mt-auto">
@@ -172,13 +212,13 @@ export default function IntegrationDiagram() {
           </motion.div>
         </div>
 
-        {/* Bottom note */}
+        {/* Stage 5: Footer points — appear after diagram settles */}
         <motion.div
           className="mt-10 flex flex-wrap gap-6 justify-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.35, duration: 0.5, ease: EXPO }}
+          transition={{ delay: 0.5, duration: 0.5, ease: EXPO }}
         >
           {[
             'Seamless coordination across all disciplines',
