@@ -9,7 +9,6 @@ import {
   ChevronRight,
   MessageCircle,
   CheckCircle2,
-  Users,
   ShieldCheck,
   FileCheck2,
   MapPin,
@@ -18,6 +17,8 @@ import { projects } from '../../../data/projects'
 import { services } from '../../../data/services'
 import { WHATSAPP_URL } from '../../../config/contact'
 import ScrollHorizontalSection from './ScrollHorizontalSection'
+import ConstructionCapabilitiesWheel from './ConstructionCapabilitiesWheel'
+import ProjectTypesBlueprint from './ProjectTypesBlueprint'
 
 const EXPO = [0.16, 1, 0.3, 1]
 
@@ -209,104 +210,13 @@ export default function CivilConstructionView({ service }) {
         </div>
       </section>
 
-      {/* ── 3. SECTION 01 — CAPABILITIES (PINNED HORIZONTAL · 8 CARDS) ── */}
-      <ScrollHorizontalSection
-        subtitle="Section 01 · Capabilities"
-        title="Construction Capabilities"
-        description="Comprehensive civil execution covering residential, commercial, structural framing, and turnkey delivery."
-        totalItems={service.capabilities.length}
-        theme="light"
-      >
-        {service.capabilities.map((cap, i) => (
-          <article
-            key={cap.id}
-            className="w-[85vw] sm:w-[420px] lg:w-[460px] h-[460px] sm:h-[480px] shrink-0 p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200/80 shadow-md flex flex-col justify-between hover:shadow-xl hover:border-red-200 transition-all group select-none relative overflow-hidden"
-          >
-            {/* Top accent line */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-60" />
+      {/* ── 3. SECTION 01 — CAPABILITIES (SCROLL-DRIVEN WHEEL + HOUSE BLUEPRINT) ── */}
+      <ConstructionCapabilitiesWheel capabilities={service.capabilities} />
 
-            <div>
-              {/* Header: Number + Category */}
-              <div className="flex items-center justify-between mb-6">
-                <span className="font-mono text-4xl sm:text-5xl font-black text-red-600 opacity-20 group-hover:opacity-40 transition-opacity">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600">
-                  Execution Scope
-                </span>
-              </div>
+      {/* ── 4. SECTION 02 — WHO IS THIS FOR (BLUEPRINT → BUILT FORM TABLE) ── */}
+      <ProjectTypesBlueprint projectTypes={service.whoFor} />
 
-              {/* Title */}
-              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mb-4 group-hover:text-red-600 transition-colors">
-                {cap.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                {cap.desc}
-              </p>
-            </div>
-
-            {/* Bottom Specs & Verification Marker */}
-            <div className="pt-6 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-red-500" />
-                <span>Advith Standards</span>
-              </div>
-              <span className="font-mono uppercase tracking-wider text-slate-400">
-                Phase 0{i + 1}
-              </span>
-            </div>
-          </article>
-        ))}
-      </ScrollHorizontalSection>
-
-      {/* ── 4. SECTION 02 — WHO IS THIS FOR (PINNED HORIZONTAL · 5 CARDS) ── */}
-      <ScrollHorizontalSection
-        subtitle="Section 02 · Project Types"
-        title="Who Is This Service For?"
-        description="Tailored civil construction for clients demanding structural permanence, transparent scheduling, and craftsmanship."
-        totalItems={service.whoFor.length}
-        theme="dark"
-      >
-        {service.whoFor.map((item, i) => (
-          <article
-            key={item.id}
-            className="w-[85vw] sm:w-[420px] lg:w-[460px] h-[460px] sm:h-[480px] shrink-0 p-8 sm:p-10 rounded-3xl bg-slate-800/90 border border-slate-700 shadow-xl flex flex-col justify-between hover:border-red-500/50 transition-all group select-none relative overflow-hidden"
-          >
-            {/* Ambient Corner Flare */}
-            <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-red-600/10 pointer-events-none blur-2xl" />
-
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-red-950/80 border border-red-800/40 flex items-center justify-center text-red-400">
-                  <Users className="w-6 h-6" />
-                </div>
-                <span className="font-mono text-2xl font-bold text-slate-600">
-                  0{i + 1} / 05
-                </span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4 group-hover:text-red-400 transition-colors">
-                {item.label}
-              </h3>
-
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
-
-            <div className="pt-6 border-t border-slate-700 flex items-center justify-between text-xs text-slate-400">
-              <span className="flex items-center gap-1.5 text-red-400 font-semibold">
-                <Building2 className="w-3.5 h-3.5" /> Direct Consultation Available
-              </span>
-              <span className="font-mono uppercase text-slate-500">Residential & Commercial</span>
-            </div>
-          </article>
-        ))}
-      </ScrollHorizontalSection>
-
-      {/* ── 5. SECTION 03 — OUR PROCESS (PINNED HORIZONTAL · 7 STAGES) ── */}
+      {/* ── 5. SECTION 03 — OUR PROCESS (STANDARD ARCHITECTURAL TIMELINE · READY FOR FUTURE ANIMATION) ── */}
       <ScrollHorizontalSection
         subtitle="Section 03 · Execution Timeline"
         title="Our Construction Process"
@@ -524,9 +434,8 @@ export default function CivilConstructionView({ service }) {
                   className="group flex items-start gap-6 p-8 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 hover:shadow-lg transition-all"
                 >
                   <div
-                    className={`shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center ${
-                      isArch ? 'bg-amber-100 text-amber-600' : 'bg-rose-100 text-rose-600'
-                    }`}
+                    className={`shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center ${isArch ? 'bg-amber-100 text-amber-600' : 'bg-rose-100 text-rose-600'
+                      }`}
                   >
                     <OtherIcon className="w-7 h-7" />
                   </div>
