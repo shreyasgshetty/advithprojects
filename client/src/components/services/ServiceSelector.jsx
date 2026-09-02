@@ -153,7 +153,6 @@ export default function ServiceSelector() {
             : 'Select an option to see a recommendation'}
         </div>
 
-        {/* Option grid */}
         <div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6"
           role="group"
@@ -161,6 +160,8 @@ export default function ServiceSelector() {
         >
           {SELECTOR_OPTIONS.map((option, i) => {
             const isSelected = selected === option.id
+            // When something IS selected, unselected cards subtly pull back.
+            const isDeemphasized = selected && !isSelected
             const { Icon } = option
             return (
               <motion.button
@@ -179,6 +180,8 @@ export default function ServiceSelector() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06, duration: 0.5, ease: EXPO }}
+                /* De-emphasize unselected when a selection exists */
+                animate={isDeemphasized && !shouldReduceMotion ? { opacity: 0.5 } : { opacity: 1 }}
               >
                 {/* Icon */}
                 <div
@@ -243,21 +246,28 @@ export default function ServiceSelector() {
                     {selectedOption.note}
                   </p>
 
+                  {/* Staggered service chips */}
                   <div className="flex flex-wrap gap-3">
-                    {recommendedServices.map((svc) => {
+                    {recommendedServices.map((svc, ri) => {
                       const colors = SERVICE_COLORS[svc.slug] || SERVICE_COLORS.construction
                       return (
-                        <Link
+                        <motion.div
                           key={svc.slug}
-                          to={svc.path}
-                          className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border ${colors.bg} ${colors.border} hover:shadow-sm transition-all`}
+                          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                          transition={{ duration: 0.35, delay: 0.1 + ri * 0.08, ease: EXPO }}
                         >
-                          <span className={`w-2 h-2 rounded-full shrink-0 ${colors.dot}`} aria-hidden="true" />
-                          <span className={`text-sm font-semibold ${colors.text}`}>
-                            {svc.title}
-                          </span>
-                          <ArrowRight className={`w-3.5 h-3.5 ${colors.arrowColor}`} aria-hidden="true" />
-                        </Link>
+                          <Link
+                            to={svc.path}
+                            className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border ${colors.bg} ${colors.border} hover:shadow-sm transition-all`}
+                          >
+                            <span className={`w-2 h-2 rounded-full shrink-0 ${colors.dot}`} aria-hidden="true" />
+                            <span className={`text-sm font-semibold ${colors.text}`}>
+                              {svc.title}
+                            </span>
+                            <ArrowRight className={`w-3.5 h-3.5 ${colors.arrowColor}`} aria-hidden="true" />
+                          </Link>
+                        </motion.div>
                       )
                     })}
                   </div>

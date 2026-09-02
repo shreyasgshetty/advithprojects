@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import {
   Building2,
@@ -15,6 +15,7 @@ import {
 import { getService, services } from '../../data/services'
 import { projects } from '../../data/projects'
 import { WHATSAPP_URL } from '../../config/contact'
+import CivilConstructionView from '../../components/services/construction/CivilConstructionView'
 
 const EXPO = [0.16, 1, 0.3, 1]
 
@@ -34,12 +35,6 @@ const CAP_NUM_CLASS = {
   construction: 'text-red-600',
   architecture: 'text-amber-600',
   interiors: 'text-rose-600',
-}
-
-const CAP_HOVER_BORDER = {
-  construction: 'hover:border-red-100',
-  architecture: 'hover:border-amber-100',
-  interiors: 'hover:border-rose-100',
 }
 
 const PROCESS_DOT = {
@@ -132,6 +127,7 @@ const LIGHT_GRID_BG = {
 export default function ServiceDetail() {
   const { slug } = useParams()
   const service = getService(slug)
+  const shouldReduceMotion = useReducedMotion()
 
   // Sticky mobile CTA — show after scrolling past hero
   const [stickyVisible, setStickyVisible] = useState(false)
@@ -144,6 +140,25 @@ export default function ServiceDetail() {
 
   if (!service) return <Navigate to="/services" replace />
 
+  // Dedicated scroll-driven horizontal experience exclusively for Civil Construction
+  if (slug === 'construction') {
+    return <CivilConstructionView service={service} />
+  }
+
+  /**
+   * Hero entrance helper — uses `animate` (not whileInView) since this is above-fold.
+   * Staged sequence: grid → breadcrumb → icon → h1 → tagline → body → CTAs
+   */
+  const heroMk = (delay, y = 24) => ({
+    initial: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y },
+    animate: shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 },
+    transition: {
+      duration: shouldReduceMotion ? 0.3 : 0.7,
+      delay: shouldReduceMotion ? delay * 0.3 : delay,
+      ease: EXPO,
+    },
+  })
+
   const Icon = iconMap[service.icon] ?? Building2
 
   // Dynamic related projects from project data
@@ -154,7 +169,6 @@ export default function ServiceDetail() {
 
   const glowColor = HERO_GLOW[slug] || HERO_GLOW.construction
   const capNumClass = CAP_NUM_CLASS[slug] || 'text-red-600'
-  const capHoverBorder = CAP_HOVER_BORDER[slug] || 'hover:border-red-100'
   const processDot = PROCESS_DOT[slug] || 'bg-red-600'
   const processLine = PROCESS_LINE[slug] || 'from-red-200 via-red-100'
   const delivBg = DELIV_BG[slug] || 'bg-red-50'
@@ -165,19 +179,30 @@ export default function ServiceDetail() {
     <div className="antialiased">
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-slate-900 py-24 lg:py-32">
-        <div className="absolute inset-0 opacity-100" style={HERO_GRID_BG} />
-        <div
+        {/* Blueprint grid fades in first */}
+        <motion.div
+          className="absolute inset-0"
+          style={HERO_GRID_BG}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: shouldReduceMotion ? 0.3 : 0.9, ease: EXPO }}
+        />
+        {/* Service-specific color glow — drifts in from top-right */}
+        <motion.div
           className="absolute top-0 right-0 w-[560px] h-[560px] rounded-full pointer-events-none"
           style={{ background: `radial-gradient(circle, ${glowColor} 0%, transparent 63%)` }}
+          initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: shouldReduceMotion ? 0.3 : 1.1, delay: 0.1, ease: EXPO }}
           aria-hidden="true"
         />
 
         <div className="relative max-w-5xl mx-auto px-6 lg:px-8">
-          {/* Breadcrumb */}
+          {/* Breadcrumb — first content to appear */}
           <motion.nav
             className="flex items-center gap-2 text-xs text-slate-400 mb-7 uppercase tracking-widest flex-wrap"
             aria-label="Breadcrumb"
-            {...rev(0)}
+            {...heroMk(0.05, 12)}
           >
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" aria-hidden="true" />
@@ -190,15 +215,15 @@ export default function ServiceDetail() {
           <motion.div
             className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl ${service.bgClass} ${service.textClass} mb-7`}
             aria-hidden="true"
-            {...rev(0.05)}
+            {...heroMk(0.15, 16)}
           >
             <Icon className="w-7 h-7" />
           </motion.div>
 
-          {/* Title */}
+          {/* Title — most visual weight */}
           <motion.h1
             className="text-5xl sm:text-6xl font-bold text-white leading-[1.08] tracking-tight mb-4"
-            {...rev(0.1)}
+            {...heroMk(0.25, 32)}
           >
             {service.title}
           </motion.h1>
@@ -207,7 +232,7 @@ export default function ServiceDetail() {
           <motion.p
             className={`text-lg font-medium mb-5 ${service.textClass}`}
             style={{ filter: 'brightness(1.4)' }}
-            {...rev(0.15)}
+            {...heroMk(0.35, 20)}
           >
             {service.tagline}
           </motion.p>
@@ -215,13 +240,13 @@ export default function ServiceDetail() {
           {/* Description */}
           <motion.p
             className="text-slate-300 font-light leading-relaxed max-w-2xl mb-10"
-            {...rev(0.2)}
+            {...heroMk(0.43, 18)}
           >
             {service.heroDescription}
           </motion.p>
 
-          {/* CTAs */}
-          <motion.div className="flex flex-wrap gap-4" {...rev(0.27)}>
+          {/* CTAs — last to appear */}
+          <motion.div className="flex flex-wrap gap-4" {...heroMk(0.55, 14)}>
             <Link
               to="/contact"
               className="flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-2xl shadow-lg shadow-red-500/20 transition-all"
@@ -327,11 +352,17 @@ export default function ServiceDetail() {
             {service.capabilities.map((cap, i) => (
               <motion.div
                 key={cap.id}
-                className={`group p-6 bg-white border border-slate-100 ${capHoverBorder} rounded-2xl shadow-sm hover:shadow-md transition-all cursor-default`}
-                initial={{ opacity: 0, y: 20 }}
+                className={`group p-6 bg-white border border-slate-100 rounded-2xl shadow-sm cursor-default`}
+                initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.5, ease: EXPO }}
+                transition={{ delay: i * 0.06, duration: 0.55, ease: EXPO }}
+                /* Subtle elevation on hover — no scale, mobile-safe */
+                whileHover={shouldReduceMotion ? {} : {
+                  y: -2,
+                  boxShadow: '0 8px 24px -6px rgba(15,23,42,0.10)',
+                  transition: { duration: 0.2, ease: EXPO }
+                }}
               >
                 {/* Number badge */}
                 <p
@@ -410,10 +441,10 @@ export default function ServiceDetail() {
                 <motion.li
                   key={step.step}
                   className="flex gap-6 items-start"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.55, ease: EXPO }}
+                  transition={{ delay: i * 0.09, duration: 0.6, ease: EXPO }}
                 >
                   {/* Step number */}
                   <div
@@ -626,14 +657,18 @@ export default function ServiceDetail() {
                   <motion.article
                     key={project.id}
                     className="group"
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 22 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.55, ease: EXPO }}
+                    transition={{ delay: i * 0.1, duration: 0.58, ease: EXPO }}
+                    whileHover={shouldReduceMotion ? {} : {
+                      y: -3,
+                      transition: { duration: 0.22, ease: EXPO }
+                    }}
                   >
                     <Link
                       to={`/projects/${project.slug}`}
-                      className="block rounded-2xl overflow-hidden border border-slate-100 hover:shadow-lg transition-all"
+                      className="block rounded-2xl overflow-hidden border border-slate-100 hover:shadow-lg hover:border-slate-200 transition-all"
                       aria-label={`View project: ${project.title}`}
                     >
                       {/* Gradient thumbnail */}

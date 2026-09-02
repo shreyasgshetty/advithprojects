@@ -49,8 +49,34 @@ const itemVariants = {
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const lastScrollY = useRef(0)
   const dropdownRef = useRef(null)
   const navigate = useNavigate()
+
+  // Hide on scroll down, show on scroll up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      // Always show when near the very top of the page
+      if (currentScrollY < 60) {
+        setVisible(true)
+      } else if (currentScrollY > lastScrollY.current + 6) {
+        // Scrolling down -> hide navbar (unless mobile menu or dropdown is active)
+        if (!mobileMenuOpen) {
+          setVisible(false)
+          setServicesOpen(false)
+        }
+      } else if (currentScrollY < lastScrollY.current - 6) {
+        // Scrolling up -> reveal navbar
+        setVisible(true)
+      }
+      lastScrollY.current = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [mobileMenuOpen])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -79,7 +105,12 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40">
+      <motion.header
+        className="sticky top-0 z-40"
+        initial={{ y: 0 }}
+        animate={{ y: visible ? 0 : '-100%' }}
+        transition={{ duration: 0.32, ease: EXPO }}
+      >
         {/* Navbar background */}
         <motion.div
           className="absolute inset-0 bg-white/90 backdrop-blur-lg border-b border-slate-100"
@@ -242,7 +273,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       <MobileNavigation
         isOpen={mobileMenuOpen}
