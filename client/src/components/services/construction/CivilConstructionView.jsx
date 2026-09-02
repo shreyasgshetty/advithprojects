@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
-  Building2,
   Compass,
   Layers,
   ArrowRight,
@@ -18,7 +17,8 @@ import { services } from '../../../data/services'
 import { WHATSAPP_URL } from '../../../config/contact'
 import ScrollHorizontalSection from './ScrollHorizontalSection'
 import ConstructionCapabilitiesWheel from './ConstructionCapabilitiesWheel'
-import ProjectTypesBlueprint from './ProjectTypesBlueprint'
+import ProjectTypesBlueprint from './ProjectTypesBlueprintScanner'
+import ConstructionProcessRoom from './ConstructionProcessRoom'
 
 const EXPO = [0.16, 1, 0.3, 1]
 
@@ -122,13 +122,13 @@ export default function CivilConstructionView({ service }) {
           </motion.nav>
 
           {/* Icon Badge */}
-          <motion.div
+          {/* <motion.div
             className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-red-950/60 border border-red-800/40 text-red-400 text-xs font-semibold uppercase tracking-widest mb-8"
             {...heroMk(0.12, 16)}
           >
             <Building2 className="w-4 h-4 text-red-500" />
             <span>Structural Engineering & Construction</span>
-          </motion.div>
+          </motion.div> */}
 
           {/* Heading */}
           <motion.h1
@@ -216,54 +216,8 @@ export default function CivilConstructionView({ service }) {
       {/* ── 4. SECTION 02 — WHO IS THIS FOR (BLUEPRINT → BUILT FORM TABLE) ── */}
       <ProjectTypesBlueprint projectTypes={service.whoFor} />
 
-      {/* ── 5. SECTION 03 — OUR PROCESS (STANDARD ARCHITECTURAL TIMELINE · READY FOR FUTURE ANIMATION) ── */}
-      <ScrollHorizontalSection
-        subtitle="Section 03 · Execution Timeline"
-        title="Our Construction Process"
-        description="A rigorous 7-stage engineering methodology from initial site assessment to final keys handover."
-        totalItems={service.process.length}
-        theme="dark"
-      >
-        {service.process.map((step, i) => (
-          <article
-            key={step.step}
-            className="w-[85vw] sm:w-[440px] lg:w-[480px] h-[460px] sm:h-[480px] shrink-0 p-8 sm:p-10 rounded-3xl bg-slate-800 border border-slate-700/80 shadow-2xl flex flex-col justify-between hover:border-red-500 transition-all select-none relative overflow-hidden group"
-          >
-            {/* Top Stage Progression Indicator */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <span className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-sm font-bold text-white">
-                  {step.step}
-                </span>
-                <span className="text-xs font-mono uppercase tracking-widest text-red-400">
-                  Stage {step.step} of 07
-                </span>
-              </div>
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            </div>
-
-            <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4 group-hover:text-red-400 transition-colors">
-                {step.title}
-              </h3>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                {step.desc}
-              </p>
-            </div>
-
-            {/* Bottom Technical Milestone */}
-            <div className="pt-6 border-t border-slate-700/80 flex items-center justify-between text-xs text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Verified Milestone</span>
-              </span>
-              <span className="font-mono text-slate-500">
-                {i === service.process.length - 1 ? 'Project Completion' : 'Next Stage Ready →'}
-              </span>
-            </div>
-          </article>
-        ))}
-      </ScrollHorizontalSection>
+      {/* ── 5. SECTION 03 — OUR PROCESS (PROJECT ROOM SCROLL EXPERIENCE) ── */}
+      <ConstructionProcessRoom processStages={service.process} />
 
       {/* ── 6. SECTION 04 — DELIVERABLES (PINNED HORIZONTAL · 6 ITEMS) ── */}
       <ScrollHorizontalSection
@@ -308,7 +262,7 @@ export default function CivilConstructionView({ service }) {
       </ScrollHorizontalSection>
 
       {/* ── 7. SECTION 05 — COMMITMENTS (PINNED HORIZONTAL · 6 ITEMS) ── */}
-      <ScrollHorizontalSection
+      {/* <ScrollHorizontalSection
         subtitle="Section 05 · Quality & Trust"
         title="Construction Commitments"
         description="Our uncompromised standards in materials, site safety, schedule adherence, and structural integrity."
@@ -347,7 +301,7 @@ export default function CivilConstructionView({ service }) {
             </div>
           </article>
         ))}
-      </ScrollHorizontalSection>
+      </ScrollHorizontalSection> */}
 
       {/* ── 8. SECTION 06 — RELATED PROJECTS (PINNED HORIZONTAL · REAL DATA) ── */}
       {relatedProjects.length > 0 && (
