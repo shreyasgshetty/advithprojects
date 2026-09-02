@@ -136,7 +136,7 @@ export default function ConstructionCapabilitiesWheel({ capabilities = [] }) {
   const [activeIdx, setActiveIdx] = useState(0)
   const [nextRingIdx, setNextRingIdx] = useState(1)
   const [nextRingGlow, setNextRingGlow] = useState(0)
-  const [totalPathLength, setTotalPathLength] = useState(0)
+  const [totalPathLength, setTotalPathLength] = useState(1444.3)
   const [ringPositions, setRingPositions] = useState([])
   const [currentProgress, setCurrentProgress] = useState(0)
 
@@ -769,17 +769,17 @@ export default function ConstructionCapabilitiesWheel({ capabilities = [] }) {
                 {/* ── LAYER 7: COMPLETED STRUCTURE CERTIFICATION BADGE (95% -> 100%) ── */}
                 <g opacity={completionBadgeOpacity}>
                   <rect
-                    x="370"
+                    x="100"
                     y="130"
                     width="260"
                     height="32"
                     rx="16"
                     fill="#0f172a"
-                    stroke="#22c55e"
+                    stroke="#22c55eff"
                     strokeWidth="1.5"
                   />
                   <text
-                    x="500"
+                    x="225"
                     y="150"
                     textAnchor="middle"
                     className="text-[10px] font-mono fill-emerald-400 font-bold uppercase tracking-widest"
@@ -815,9 +815,8 @@ export default function ConstructionCapabilitiesWheel({ capabilities = [] }) {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   style={{
-                    strokeDasharray: totalPathLength || 1500,
-                    strokeDashoffset: (totalPathLength || 1500) * (1 - wheelState.progress),
-                    transition: 'stroke-dashoffset 0.04s linear',
+                    strokeDasharray: totalPathLength,
+                    strokeDashoffset: totalPathLength * (1 - wheelState.progress),
                   }}
                 />
 
@@ -888,30 +887,28 @@ export default function ConstructionCapabilitiesWheel({ capabilities = [] }) {
                       {/* Main Node Ring */}
                       <circle
                         r={isActive ? '18' : isNextApproaching ? '15' : '12'}
-                        className={`transition-all duration-300 ${
-                          isActive
-                            ? 'fill-slate-900 stroke-red-500'
-                            : isNextApproaching
+                        className={`transition-all duration-300 ${isActive
+                          ? 'fill-slate-900 stroke-red-500'
+                          : isNextApproaching
                             ? 'fill-slate-900 stroke-red-500'
                             : isCompleted
-                            ? 'fill-slate-950 stroke-red-700'
-                            : 'fill-slate-950 stroke-slate-700'
-                        }`}
+                              ? 'fill-slate-950 stroke-red-700'
+                              : 'fill-slate-950 stroke-slate-700'
+                          }`}
                         strokeWidth={isActive || isNextApproaching ? '3' : '2'}
                       />
 
                       {/* Center Core Node */}
                       <circle
                         r={isActive ? '6' : isNextApproaching ? '5' : '4'}
-                        className={`transition-colors duration-300 ${
-                          isActive
-                            ? 'fill-red-500'
-                            : isNextApproaching
+                        className={`transition-colors duration-300 ${isActive
+                          ? 'fill-red-500'
+                          : isNextApproaching
                             ? 'fill-red-400'
                             : isCompleted
-                            ? 'fill-red-600'
-                            : 'fill-slate-600'
-                        }`}
+                              ? 'fill-red-600'
+                              : 'fill-slate-600'
+                          }`}
                       />
 
                       {/* Capability Ring Number Label */}
@@ -919,15 +916,14 @@ export default function ConstructionCapabilitiesWheel({ capabilities = [] }) {
                         x={labelOffset.x}
                         y={labelOffset.y}
                         textAnchor="middle"
-                        className={`text-[12px] font-mono font-bold transition-all duration-300 ${
-                          isActive
-                            ? 'fill-white'
-                            : isNextApproaching
+                        className={`text-[12px] font-mono font-bold transition-all duration-300 ${isActive
+                          ? 'fill-white'
+                          : isNextApproaching
                             ? 'fill-red-400 font-bold'
                             : isCompleted
-                            ? 'fill-red-400'
-                            : 'fill-slate-500'
-                        }`}
+                              ? 'fill-red-400'
+                              : 'fill-slate-500'
+                          }`}
                       >
                         {nodeNum}
                       </text>
@@ -984,15 +980,15 @@ export default function ConstructionCapabilitiesWheel({ capabilities = [] }) {
               {activeSpec.stageTag} · Elevation {activeSpec.elevation}
             </span>
             <span className="text-slate-600">·</span>
-            <span className="text-slate-400 hidden sm:inline">
+            {/* <span className="text-slate-400 hidden sm:inline">
               Scroll down to construct building from Foundation → Columns → Slab → Envelope → Roof Apex
-            </span>
+            </span> */}
           </div>
 
           <div className="flex items-center gap-2 font-mono text-slate-400">
-            <span>
+            {/* <span>
               {activeIdx === 7 ? 'Structure Complete & Turnkey Ready ★' : 'Wheel leading construction build'}
-            </span>
+            </span> */}
             <ChevronRight className="w-3.5 h-3.5 text-red-500 animate-pulse" />
           </div>
         </div>
