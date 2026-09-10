@@ -57,13 +57,7 @@ export default function ConstructionHero({ service }) {
           {/* Main Editorial Content */}
           <div className="lg:col-span-7">
             {/* Technical Service Tag */}
-            <motion.div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-900/80 border border-slate-700/60 text-red-400 font-mono text-xs uppercase tracking-wider mb-6"
-              {...anim(0.1, 10)}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-              <span>01 / Civil Construction Division</span>
-            </motion.div>
+
 
             {/* Headline */}
             <motion.h1

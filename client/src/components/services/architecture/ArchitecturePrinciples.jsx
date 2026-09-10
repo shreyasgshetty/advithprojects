@@ -61,10 +61,6 @@ export default function ArchitecturePrinciples() {
                   {item.desc}
                 </p>
               </div>
-
-              <div className="mt-6 pt-3 border-t border-[#E7E5E0] text-[10px] font-mono text-slate-400 uppercase tracking-wider">
-                Advith Philosophy
-              </div>
             </motion.div>
           ))}
         </div>

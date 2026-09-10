@@ -56,13 +56,6 @@ export default function InteriorsHero({ service }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="lg:col-span-7">
-            <motion.div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-900/80 border border-slate-700/60 text-rose-400 font-mono text-xs uppercase tracking-wider mb-6"
-              {...anim(0.1, 10)}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
-              <span>03 / Interior Architecture Division</span>
-            </motion.div>
 
             <motion.h1
               className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] mb-6"

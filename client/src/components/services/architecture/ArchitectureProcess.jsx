@@ -57,9 +57,6 @@ export default function ArchitectureProcess() {
                       {stage.title}
                     </h3>
                   </div>
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">
-                    Design Stage 0{idx + 1}
-                  </span>
                 </div>
 
                 <p className="text-sm text-slate-600 leading-relaxed font-light">

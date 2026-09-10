@@ -60,9 +60,6 @@ export default function ConstructionProcessTimeline() {
                       {stage.title}
                     </h3>
                   </div>
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">
-                    Milestone Checkpoint 0{idx + 1}
-                  </span>
                 </div>
 
                 <p className="text-sm text-slate-600 leading-relaxed font-light">
