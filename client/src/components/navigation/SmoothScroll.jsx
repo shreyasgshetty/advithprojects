@@ -17,14 +17,17 @@ export default function SmoothScroll() {
       return
     }
 
+    const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: isTouchDevice ? 0.85 : 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
+      touchMultiplier: 1.0,
+      syncTouch: false,
       autoRaf: true,
     })
 
