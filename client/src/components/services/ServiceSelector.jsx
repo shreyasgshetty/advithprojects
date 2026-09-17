@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
@@ -117,6 +117,35 @@ function getServiceData(slug) {
 export default function ServiceSelector() {
   const [selected, setSelected] = useState(null)
   const shouldReduceMotion = useReducedMotion()
+  const recommendationRef = useRef(null)
+
+  // On mobile (< 1024px), automatically scroll the newly revealed recommendation panel into view
+  useEffect(() => {
+    // Only scroll when an option is selected (never on deselection)
+    if (!selected) return
+
+    // Desktop check: do not auto-scroll on screens >= 1024px (matching Tailwind lg breakpoint)
+    if (typeof window === 'undefined' || window.innerWidth >= 1024) return
+
+    // Small delay ensures AnimatePresence has mounted the panel in the DOM
+    const timer = setTimeout(() => {
+      if (!recommendationRef.current) return
+
+      if (window.__lenis) {
+        window.__lenis.scrollTo(recommendationRef.current, {
+          offset: -96,
+          immediate: shouldReduceMotion,
+        })
+      } else {
+        recommendationRef.current.scrollIntoView({
+          behavior: shouldReduceMotion ? 'auto' : 'smooth',
+          block: 'start',
+        })
+      }
+    }, 80)
+
+    return () => clearTimeout(timer)
+  }, [selected, shouldReduceMotion])
 
   const selectedOption = SELECTOR_OPTIONS.find((o) => o.id === selected)
 
@@ -199,16 +228,14 @@ export default function ServiceSelector() {
                 {/* Text */}
                 <div className="flex-1 min-w-0">
                   <p
-                    className={`font-semibold text-sm mb-0.5 ${
-                      isSelected ? 'text-white' : 'text-slate-900'
-                    }`}
+                    className={`font-semibold text-sm mb-0.5 ${isSelected ? 'text-white' : 'text-slate-900'
+                      }`}
                   >
                     {option.label}
                   </p>
                   <p
-                    className={`text-xs leading-relaxed ${
-                      isSelected ? 'text-slate-300' : 'text-slate-500'
-                    }`}
+                    className={`text-xs leading-relaxed ${isSelected ? 'text-slate-300' : 'text-slate-500'
+                      }`}
                   >
                     {option.sub}
                   </p>
@@ -227,12 +254,13 @@ export default function ServiceSelector() {
         <AnimatePresence mode="wait">
           {selectedOption && (
             <motion.div
+              ref={recommendationRef}
               key={selectedOption.id}
               initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={shouldReduceMotion ? {} : { opacity: 0, y: -8 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.32, ease: EXPO }}
-              className="rounded-2xl border border-slate-100 bg-slate-50 p-6 lg:p-8"
+              className="scroll-mt-24 sm:scroll-mt-28 rounded-2xl border border-slate-100 bg-slate-50 p-6 lg:p-8"
               role="region"
               aria-label="Service recommendation"
             >
@@ -279,7 +307,7 @@ export default function ServiceSelector() {
                     to="/contact"
                     className="flex-1 lg:flex-none flex items-center justify-center gap-2 px-5 py-3.5 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-xl transition-all shadow-sm shadow-red-500/20"
                   >
-                    Discuss Your Project
+                    Discuss
                     <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </Link>
                   <a
@@ -290,7 +318,7 @@ export default function ServiceSelector() {
                     aria-label="Contact via WhatsApp"
                   >
                     <MessageCircle className="w-4 h-4" aria-hidden="true" />
-                    WhatsApp Us
+                    WhatsApp
                   </a>
                 </div>
               </div>
