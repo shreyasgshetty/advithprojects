@@ -147,7 +147,7 @@ export default function ConstructionHero({ service }) {
 
               {/* Top CAD Header Bar */}
               <div className="relative z-10 flex items-center justify-between border-b border-slate-800 pb-2 text-[10px] font-mono text-slate-400">
-                <span className="text-red-400 font-semibold tracking-wider">STRUCTURAL ELEVATION // DWG-01</span>
+                <span className="text-red-400 font-semibold tracking-wider">Advith Projects</span>
                 <span>SCALE 1:100</span>
               </div>
 
@@ -207,12 +207,6 @@ export default function ConstructionHero({ service }) {
                   <line x1="160" y1="178" x2="250" y2="178" stroke="#475569" strokeWidth="0.8" />
                   <text x="195" y="176" fill="#94A3B8" fontSize="6" fontFamily="monospace">4.50m</text>
                 </svg>
-              </div>
-
-              {/* Bottom CAD Metadata Bar */}
-              <div className="relative z-10 flex items-center justify-between border-t border-slate-800 pt-2 text-[9px] font-mono text-slate-500">
-                <span>PROJECT: ADVITH RESIDENTIAL</span>
-                <span>STATUS: VERIFIED</span>
               </div>
             </div>
           </motion.div>

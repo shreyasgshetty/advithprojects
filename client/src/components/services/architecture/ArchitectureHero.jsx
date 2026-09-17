@@ -138,7 +138,7 @@ export default function ArchitectureHero({ service }) {
               />
 
               <div className="relative z-10 flex items-center justify-between border-b border-slate-800 pb-2 text-[10px] font-mono text-slate-400">
-                <span className="text-amber-400 font-semibold tracking-wider">SCHEMATIC FLOOR PLAN // ARCH-01</span>
+                <span className="text-amber-400 font-semibold tracking-wider">Advith Projects</span>
                 <span>SCALE 1:100</span>
               </div>
 
@@ -190,11 +190,6 @@ export default function ArchitectureHero({ service }) {
                     <text x="-2" y="-9" fill="#D97706" fontSize="6" fontFamily="monospace">N</text>
                   </g>
                 </svg>
-              </div>
-
-              <div className="relative z-10 flex items-center justify-between border-t border-slate-800 pt-2 text-[9px] font-mono text-slate-500">
-                <span>CONCEPT STUDY // RESIDENTIAL</span>
-                <span>ADVITH ARCHITECTURE</span>
               </div>
             </div>
           </motion.div>

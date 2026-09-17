@@ -91,7 +91,7 @@ export default function InteriorsApproach() {
                   to="/about"
                   className="text-[#E11D48] hover:text-rose-700 font-semibold inline-flex items-center gap-1 transition-colors"
                 >
-                  About Our Studio <ArrowRight className="w-3 h-3" />
+                  About Us <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>

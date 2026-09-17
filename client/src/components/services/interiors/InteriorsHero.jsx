@@ -138,7 +138,7 @@ export default function InteriorsHero({ service }) {
               />
 
               <div className="relative z-10 flex items-center justify-between border-b border-slate-800 pb-2 text-[10px] font-mono text-slate-400">
-                <span className="text-rose-400 font-semibold tracking-wider">JOINERY ELEVATION // INT-01</span>
+                <span className="text-rose-400 font-semibold tracking-wider">Advith Projects</span>
                 <span>SCALE 1:50</span>
               </div>
 
@@ -190,11 +190,6 @@ export default function InteriorsHero({ service }) {
                   <line x1="90" y1="162" x2="230" y2="162" stroke="#64748B" strokeWidth="0.8" />
                   <text x="150" y="172" fill="#94A3B8" fontSize="6" fontFamily="monospace">2.10m</text>
                 </svg>
-              </div>
-
-              <div className="relative z-10 flex items-center justify-between border-t border-slate-800 pt-2 text-[9px] font-mono text-slate-500">
-                <span>CUSTOM JOINERY STUDY</span>
-                <span>ADVITH INTERIORS</span>
               </div>
             </div>
           </motion.div>

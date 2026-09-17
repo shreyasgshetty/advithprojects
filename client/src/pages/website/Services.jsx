@@ -98,7 +98,7 @@ function HeroSection({ shouldReduceMotion }) {
   })
 
   return (
-    <section className="relative overflow-hidden bg-slate-900 py-24 lg:py-36">
+    <section className="relative overflow-hidden bg-slate-900 py-14 sm:py-20 lg:py-36">
       {/* Blueprint grid — fades in first */}
       <motion.div
         className="absolute inset-0"
@@ -110,7 +110,7 @@ function HeroSection({ shouldReduceMotion }) {
 
       {/* Red glow — top right */}
       <motion.div
-        className="absolute -top-20 right-0 w-[560px] h-[560px] rounded-full pointer-events-none"
+        className="absolute -top-16 -right-16 sm:-top-20 sm:right-0 w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] lg:w-[560px] lg:h-[560px] rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(239,68,68,0.11) 0%, transparent 62%)' }}
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
@@ -119,15 +119,15 @@ function HeroSection({ shouldReduceMotion }) {
       />
       {/* Red glow — bottom left */}
       <div
-        className="absolute -bottom-40 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
+        className="absolute -bottom-24 -left-16 sm:-bottom-40 sm:-left-20 w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] lg:w-[400px] lg:h-[400px] rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(239,68,68,0.06) 0%, transparent 65%)' }}
         aria-hidden="true"
       />
 
-      <div className="relative max-w-5xl mx-auto px-6 lg:px-8 text-center">
+      <div className="relative max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
         {/* Breadcrumb */}
         <motion.nav
-          className="flex items-center justify-center gap-2 text-xs text-slate-400 mb-8 uppercase tracking-widest"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-400 mb-5 sm:mb-6 lg:mb-8 uppercase tracking-widest"
           aria-label="Breadcrumb"
           {...mk(0.05, 12)}
         >
@@ -136,18 +136,17 @@ function HeroSection({ shouldReduceMotion }) {
           <span className="text-slate-300" aria-current="page">Services</span>
         </motion.nav>
 
-        {/* Badge / eyebrow */}
-        <motion.div
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-800/40 bg-red-900/30 text-red-400 text-xs font-semibold uppercase tracking-widest mb-7"
+        {/* Disciplines eyebrow */}
+        <motion.p
+          className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-red-400 mb-5 sm:mb-6 lg:mb-7"
           {...mk(0.12, 16)}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />
           Construction · Architecture · Interiors
-        </motion.div>
+        </motion.p>
 
         {/* Main heading — largest, most weight */}
         <motion.h1
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight mb-6"
+          className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] sm:leading-[1.05] tracking-tight mb-4 sm:mb-5 lg:mb-6"
           {...mk(0.22, 32)}
         >
           Design.{' '}
@@ -157,7 +156,7 @@ function HeroSection({ shouldReduceMotion }) {
 
         {/* Supporting copy */}
         <motion.p
-          className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl mx-auto mb-10"
+          className="text-sm sm:text-base lg:text-lg text-slate-300 font-light leading-relaxed max-w-xl lg:max-w-2xl mx-auto mb-7 sm:mb-8 lg:mb-10"
           {...mk(0.38, 20)}
         >
           From architectural planning to construction and interiors, Advith Projects brings the
@@ -166,17 +165,17 @@ function HeroSection({ shouldReduceMotion }) {
         </motion.p>
 
         {/* CTAs — last to appear */}
-        <motion.div className="flex flex-wrap gap-4 justify-center" {...mk(0.52, 16)}>
+        <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4" {...mk(0.52, 16)}>
           <Link
             to="/contact"
-            className="flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-2xl shadow-lg shadow-red-500/20 transition-all"
+            className="w-full max-w-xs sm:w-auto flex items-center justify-center gap-2 px-7 py-3 sm:py-3.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-2xl shadow-lg shadow-red-500/20 transition-all"
           >
             Get a Quote
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
           <Link
             to="/projects"
-            className="px-7 py-3.5 border border-white/20 hover:border-white/40 text-white font-medium text-sm rounded-2xl transition-all hover:bg-white/5"
+            className="w-full max-w-xs sm:w-auto flex items-center justify-center px-7 py-3 sm:py-3.5 border border-white/20 hover:border-white/40 text-white font-medium text-sm rounded-2xl transition-all hover:bg-white/5"
           >
             Explore Projects
           </Link>
