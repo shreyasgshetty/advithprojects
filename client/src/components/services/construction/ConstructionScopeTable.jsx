@@ -89,7 +89,7 @@ export default function ConstructionScopeTable() {
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
           <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-widest text-[#DC2626] mb-3">
-            <span>03</span>
+            <span>02</span>
             <span className="text-slate-300">/</span>
             <span>Execution Scope</span>
           </div>

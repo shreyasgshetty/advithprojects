@@ -5,7 +5,7 @@ import { WHATSAPP_URL } from '../../../config/contact'
 
 const EXPO = [0.16, 1, 0.3, 1]
 
-export default function ConstructionHero({ service }) {
+export default function InteriorsHero({ service }) {
   const shouldReduceMotion = useReducedMotion()
 
   const anim = (delay = 0, y = 16) => ({
@@ -31,10 +31,10 @@ export default function ConstructionHero({ service }) {
         aria-hidden="true"
       />
 
-      {/* Atmospheric Engineering Glow */}
+      {/* Atmospheric Rose Glow */}
       <div
         className="absolute top-0 right-0 w-[550px] h-[550px] rounded-full pointer-events-none opacity-20"
-        style={{ background: 'radial-gradient(circle, #DC2626 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #E11D48 0%, transparent 70%)' }}
         aria-hidden="true"
       />
 
@@ -49,26 +49,22 @@ export default function ConstructionHero({ service }) {
           <ChevronRight className="w-3 h-3 text-slate-600" aria-hidden="true" />
           <Link to="/services" className="hover:text-white transition-colors">Services</Link>
           <ChevronRight className="w-3 h-3 text-slate-600" aria-hidden="true" />
-          <span className="text-red-400 font-semibold" aria-current="page">Civil Construction</span>
+          <span className="text-rose-400 font-semibold" aria-current="page">Interior Design</span>
         </motion.nav>
 
-        {/* Hero Grid: Left Content + Right Architectural CAD Linework Composition */}
+        {/* Hero Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Main Editorial Content */}
+          {/* Left Content */}
           <div className="lg:col-span-7">
-            {/* Technical Service Tag */}
 
-
-            {/* Headline */}
             <motion.h1
               className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] mb-6"
               {...anim(0.18, 16)}
             >
-              Built with Precision.{' '}
-              <span className="text-red-500 block sm:inline">Executed with Purpose.</span>
+              Environments Crafted with{' '}
+              <span className="text-rose-500 block sm:inline">Material, Detail & Light.</span>
             </motion.h1>
 
-            {/* Description directly from services.js */}
             <motion.p
               className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl mb-8"
               {...anim(0.26, 14)}
@@ -76,11 +72,10 @@ export default function ConstructionHero({ service }) {
               {service.heroDescription}
             </motion.p>
 
-            {/* Primary Action Buttons */}
             <motion.div className="flex flex-wrap gap-4 items-center mb-10" {...anim(0.34, 12)}>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-xl shadow-lg shadow-red-600/20 transition-all active:scale-[0.98]"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm rounded-xl shadow-lg shadow-rose-600/20 transition-all active:scale-[0.98]"
               >
                 <span>Start Your Project</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -89,7 +84,7 @@ export default function ConstructionHero({ service }) {
                 href="#scope"
                 className="inline-flex items-center gap-2 px-6 py-3.5 border border-slate-700 hover:border-slate-500 text-slate-200 hover:text-white font-medium text-sm rounded-xl transition-all hover:bg-slate-800/40"
               >
-                <span>Explore Execution Scope</span>
+                <span>Explore Interior Scope</span>
               </a>
               <a
                 href={WHATSAPP_URL}
@@ -103,39 +98,36 @@ export default function ConstructionHero({ service }) {
               </a>
             </motion.div>
 
-            {/* Technical Metadata Chips */}
             <motion.div
               className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800/80 font-mono text-xs text-slate-400"
               {...anim(0.42, 10)}
             >
               <div>
-                <span className="block text-[10px] text-slate-500 uppercase tracking-widest">Category</span>
-                <span className="text-slate-200 font-medium">Civil & Structural</span>
+                <span className="block text-[10px] text-slate-500 uppercase tracking-widest">Discipline</span>
+                <span className="text-slate-200 font-medium">Interior Architecture</span>
               </div>
               <div>
                 <span className="block text-[10px] text-slate-500 uppercase tracking-widest">Scope</span>
-                <span className="text-slate-200 font-medium">Turnkey & Structure</span>
+                <span className="text-slate-200 font-medium">Concept to Fit-out</span>
               </div>
               <div>
                 <span className="block text-[10px] text-slate-500 uppercase tracking-widest">Process</span>
-                <span className="text-slate-200 font-medium">7-Stage Phased</span>
+                <span className="text-slate-200 font-medium">6-Stage Phased</span>
               </div>
               <div>
-                <span className="block text-[10px] text-slate-500 uppercase tracking-widest">Supervision</span>
-                <span className="text-slate-200 font-medium">On-Site Oversight</span>
+                <span className="block text-[10px] text-slate-500 uppercase tracking-widest">Focus</span>
+                <span className="text-slate-200 font-medium">Joinery & Light</span>
               </div>
             </motion.div>
           </div>
 
-          {/* Right: Authentic Architectural Drafting Linework Composition (No empty UI card) */}
+          {/* Right: Authentic Interior Elevation & Joinery Linework (No empty card) */}
           <motion.div
             className="lg:col-span-5 relative select-none flex items-center justify-center"
             {...anim(0.28, 16)}
             aria-hidden="true"
           >
-            {/* Architectural Linework Canvas */}
             <div className="w-full max-w-md aspect-[4/3] relative rounded-xl border border-slate-800/80 bg-slate-950/40 p-6 overflow-hidden flex flex-col justify-between">
-              {/* Draftsman Grid Background */}
               <div
                 className="absolute inset-0 opacity-20 pointer-events-none"
                 style={{
@@ -145,13 +137,12 @@ export default function ConstructionHero({ service }) {
                 }}
               />
 
-              {/* Top CAD Header Bar */}
               <div className="relative z-10 flex items-center justify-between border-b border-slate-800 pb-2 text-[10px] font-mono text-slate-400">
-                <span className="text-red-400 font-semibold tracking-wider">STRUCTURAL ELEVATION // DWG-01</span>
-                <span>SCALE 1:100</span>
+                <span className="text-rose-400 font-semibold tracking-wider">JOINERY ELEVATION // INT-01</span>
+                <span>SCALE 1:50</span>
               </div>
 
-              {/* Center Structural Blueprint Linework */}
+              {/* Interior Joinery Section SVG */}
               <div className="relative z-10 flex-1 my-4 flex items-center justify-center">
                 <svg
                   viewBox="0 0 320 180"
@@ -160,59 +151,50 @@ export default function ConstructionHero({ service }) {
                   stroke="currentColor"
                   strokeWidth="1"
                 >
-                  {/* Datum Level Lines */}
-                  <line x1="30" y1="30" x2="290" y2="30" stroke="#334155" strokeDasharray="3 3" />
-                  <text x="295" y="33" fill="#64748B" fontSize="7" fontFamily="monospace">+6.40 ROOF</text>
+                  {/* Floor and Ceiling Datum */}
+                  <line x1="20" y1="25" x2="300" y2="25" stroke="#334155" strokeDasharray="3 3" />
+                  <text x="245" y="20" fill="#64748B" fontSize="6" fontFamily="monospace">CEILING +2.85m</text>
 
-                  <line x1="30" y1="80" x2="290" y2="80" stroke="#334155" strokeDasharray="3 3" />
-                  <text x="295" y="83" fill="#64748B" fontSize="7" fontFamily="monospace">+3.20 FIRST</text>
+                  <line x1="20" y1="155" x2="300" y2="155" stroke="#E11D48" strokeWidth="1.2" />
+                  <text x="245" y="167" fill="#E11D48" fontSize="6" fontFamily="monospace">FINISHED FLOOR</text>
 
-                  <line x1="30" y1="130" x2="290" y2="130" stroke="#DC2626" strokeWidth="1.2" />
-                  <text x="295" y="133" fill="#DC2626" fontSize="7" fontFamily="monospace">±0.00 PLINTH</text>
+                  {/* Feature Wall Cladding Panel */}
+                  <rect x="40" y="35" width="240" height="120" stroke="#334155" fill="none" />
+                  {/* Fluted panel accents */}
+                  <line x1="50" y1="35" x2="50" y2="155" stroke="#334155" strokeWidth="0.6" strokeDasharray="2 2" />
+                  <line x1="60" y1="35" x2="60" y2="155" stroke="#334155" strokeWidth="0.6" strokeDasharray="2 2" />
+                  <line x1="70" y1="35" x2="70" y2="155" stroke="#334155" strokeWidth="0.6" strokeDasharray="2 2" />
 
-                  <line x1="30" y1="165" x2="290" y2="165" stroke="#334155" strokeDasharray="3 3" />
-                  <text x="295" y="168" fill="#64748B" fontSize="7" fontFamily="monospace">-1.50 FTG</text>
+                  {/* Built-in Credenza / Media Unit */}
+                  <rect x="90" y="115" width="140" height="40" stroke="#E11D48" strokeWidth="1.2" fill="rgba(225,29,72,0.06)" />
+                  <line x1="136" y1="115" x2="136" y2="155" stroke="#475569" strokeWidth="0.8" />
+                  <line x1="184" y1="115" x2="184" y2="155" stroke="#475569" strokeWidth="0.8" />
 
-                  {/* Structural Columns & Framing */}
-                  {/* Grid Line 1 */}
-                  <line x1="70" y1="20" x2="70" y2="170" stroke="#0284C7" strokeWidth="1.2" strokeOpacity="0.8" />
-                  <rect x="66" y="30" width="8" height="100" fill="rgba(2,132,199,0.1)" stroke="#0284C7" strokeWidth="1" />
-                  <rect x="58" y="155" width="24" height="10" fill="none" stroke="#64748B" strokeWidth="1" />
-                  <circle cx="70" cy="15" r="4" stroke="#64748B" fill="#0B0F17" />
-                  <text x="68" y="17" fill="#CBD5E1" fontSize="6" fontFamily="monospace">A</text>
+                  {/* Handles / Reveal line */}
+                  <line x1="90" y1="120" x2="230" y2="120" stroke="#E11D48" strokeWidth="0.6" strokeDasharray="2 2" />
 
-                  {/* Grid Line 2 */}
-                  <line x1="160" y1="20" x2="160" y2="170" stroke="#0284C7" strokeWidth="1.2" strokeOpacity="0.8" />
-                  <rect x="156" y="30" width="8" height="100" fill="rgba(2,132,199,0.1)" stroke="#0284C7" strokeWidth="1" />
-                  <rect x="148" y="155" width="24" height="10" fill="none" stroke="#64748B" strokeWidth="1" />
-                  <circle cx="160" cy="15" r="4" stroke="#64748B" fill="#0B0F17" />
-                  <text x="158" y="17" fill="#CBD5E1" fontSize="6" fontFamily="monospace">B</text>
+                  {/* Wall-hung display shelves */}
+                  <line x1="110" y1="65" x2="210" y2="65" stroke="#CBD5E1" strokeWidth="1.5" />
+                  <line x1="110" y1="85" x2="210" y2="85" stroke="#CBD5E1" strokeWidth="1.5" />
 
-                  {/* Grid Line 3 */}
-                  <line x1="250" y1="20" x2="250" y2="170" stroke="#0284C7" strokeWidth="1.2" strokeOpacity="0.8" />
-                  <rect x="246" y="30" width="8" height="100" fill="rgba(2,132,199,0.1)" stroke="#0284C7" strokeWidth="1" />
-                  <rect x="238" y="155" width="24" height="10" fill="none" stroke="#64748B" strokeWidth="1" />
-                  <circle cx="250" cy="15" r="4" stroke="#64748B" fill="#0B0F17" />
-                  <text x="248" y="17" fill="#CBD5E1" fontSize="6" fontFamily="monospace">C</text>
+                  {/* Ambient Light Cove indicator */}
+                  <line x1="40" y1="32" x2="280" y2="32" stroke="#FDE047" strokeWidth="1" strokeOpacity="0.8" strokeDasharray="4 2" />
+                  <text x="120" y="44" fill="#FDE047" fontSize="6" fontFamily="monospace">COVE LIGHTING STRIP</text>
 
-                  {/* Slabs & Tie Beams */}
-                  <rect x="66" y="27" width="188" height="6" fill="#1E293B" stroke="#0284C7" strokeWidth="1" />
-                  <rect x="66" y="77" width="188" height="6" fill="#1E293B" stroke="#0284C7" strokeWidth="1" />
-                  <rect x="66" y="127" width="188" height="6" fill="#1E293B" stroke="#DC2626" strokeWidth="1" />
+                  {/* Callout Labels */}
+                  <text x="95" y="140" fill="#CBD5E1" fontSize="6" fontFamily="monospace">WALNUT VENEER</text>
+                  <text x="145" y="140" fill="#CBD5E1" fontSize="6" fontFamily="monospace">MATTE LACQUER</text>
+                  <text x="115" y="60" fill="#94A3B8" fontSize="5" fontFamily="monospace">CONCEALED BRACKET</text>
 
-                  {/* Dimension Callouts */}
-                  <line x1="70" y1="178" x2="160" y2="178" stroke="#475569" strokeWidth="0.8" markerStart="url(#tick)" markerEnd="url(#tick)" />
-                  <text x="105" y="176" fill="#94A3B8" fontSize="6" fontFamily="monospace">4.50m</text>
-
-                  <line x1="160" y1="178" x2="250" y2="178" stroke="#475569" strokeWidth="0.8" />
-                  <text x="195" y="176" fill="#94A3B8" fontSize="6" fontFamily="monospace">4.50m</text>
+                  {/* Dimension Line */}
+                  <line x1="90" y1="162" x2="230" y2="162" stroke="#64748B" strokeWidth="0.8" />
+                  <text x="150" y="172" fill="#94A3B8" fontSize="6" fontFamily="monospace">2.10m</text>
                 </svg>
               </div>
 
-              {/* Bottom CAD Metadata Bar */}
               <div className="relative z-10 flex items-center justify-between border-t border-slate-800 pt-2 text-[9px] font-mono text-slate-500">
-                <span>PROJECT: ADVITH RESIDENTIAL</span>
-                <span>STATUS: VERIFIED</span>
+                <span>CUSTOM JOINERY STUDY</span>
+                <span>ADVITH INTERIORS</span>
               </div>
             </div>
           </motion.div>

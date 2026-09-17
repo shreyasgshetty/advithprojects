@@ -27,7 +27,7 @@ export default function ConstructionGovernance() {
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
           <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-widest text-[#DC2626] mb-3">
-            <span>05</span>
+            <span>04</span>
             <span className="text-slate-300">/</span>
             <span>Site Governance & Standards</span>
           </div>
@@ -52,9 +52,6 @@ export default function ConstructionGovernance() {
                   <div className="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
                     <CheckCircle2 className="w-4 h-4 text-[#DC2626]" />
                   </div>
-                  <span className="font-mono text-xs text-slate-400">
-                    STD-0{idx + 1}
-                  </span>
                 </div>
 
                 <h3 className="text-base font-bold text-slate-900 mb-2 tracking-tight">
@@ -68,7 +65,6 @@ export default function ConstructionGovernance() {
 
               <div className="mt-6 pt-4 border-t border-[#E7E5E0] text-[11px] font-mono text-slate-400 uppercase tracking-wider flex items-center justify-between">
                 <span>Verified Practice</span>
-                <span className="text-emerald-600 font-semibold">Active Control</span>
               </div>
             </motion.div>
           ))}
