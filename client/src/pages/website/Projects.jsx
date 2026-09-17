@@ -7,35 +7,30 @@ import { projects, filterProjects } from '../../data/projects'
 const EXPO = [0.16, 1, 0.3, 1]
 
 const CATEGORY_COLORS = {
-  residential: { bg: 'bg-red-50', text: 'text-red-600', border: 'border-red-100' },
-  commercial: { bg: 'bg-amber-50', text: 'text-amber-600', border: 'border-amber-100' },
   architecture: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-100' },
+  construction: { bg: 'bg-amber-50', text: 'text-amber-600', border: 'border-amber-100' },
   interiors: { bg: 'bg-rose-50', text: 'text-rose-600', border: 'border-rose-100' },
 }
 
-const PLACEHOLDER_GRADIENTS = [
-  'from-slate-800 to-slate-900',
-  'from-slate-700 to-slate-800',
-  'from-red-900 to-slate-900',
-  'from-amber-900 to-slate-900',
-  'from-rose-900 to-slate-900',
-  'from-slate-800 to-red-900',
-]
+// One gradient per category — index matches: 0=architecture, 1=construction, 2=interiors
+const CATEGORY_GRADIENTS = {
+  architecture: 'from-blue-900 to-slate-900',
+  construction: 'from-amber-900 to-slate-900',
+  interiors: 'from-rose-900 to-slate-900',
+}
 
 const FILTERS = [
   { id: 'all', label: 'All' },
-  { id: 'residential', label: 'Residential' },
-  { id: 'commercial', label: 'Commercial' },
   { id: 'architecture', label: 'Architecture' },
+  { id: 'construction', label: 'Construction' },
   { id: 'interiors', label: 'Interiors' },
   { id: 'completed', label: 'Completed' },
   { id: 'ongoing', label: 'Ongoing' },
 ]
 
 function ProjectCard({ project, index }) {
-  const colorKey = project.category in CATEGORY_COLORS ? project.category : 'residential'
-  const colors = CATEGORY_COLORS[colorKey]
-  const gradient = PLACEHOLDER_GRADIENTS[index % PLACEHOLDER_GRADIENTS.length]
+  const colors = CATEGORY_COLORS[project.category] ?? CATEGORY_COLORS.architecture
+  const gradient = CATEGORY_GRADIENTS[project.category] ?? 'from-slate-800 to-slate-900'
 
   return (
     <motion.div
@@ -46,22 +41,32 @@ function ProjectCard({ project, index }) {
       transition={{ duration: 0.45, ease: EXPO }}
       className="group bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:border-slate-200 transition-all"
     >
-      {/* Image / Placeholder */}
+      {/* Cover image / gradient placeholder */}
       <div className={`h-52 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
-        {/* Architectural grid overlay */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-          }}
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-          <div className="w-8 h-0.5 bg-white/20 rounded" />
-          <p className="text-white/30 text-xs font-semibold uppercase tracking-widest">{project.category}</p>
-          <div className="w-8 h-0.5 bg-white/20 rounded" />
-        </div>
+        {project.coverImage ? (
+          <img
+            src={project.coverImage}
+            alt={project.id.toUpperCase()}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <>
+            {/* Architectural grid overlay */}
+            <div
+              className="absolute inset-0 opacity-10"
+              style={{
+                backgroundImage:
+                  'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '24px 24px',
+              }}
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+              <div className="w-8 h-0.5 bg-white/20 rounded" />
+              <p className="text-white/30 text-xs font-semibold uppercase tracking-widest">{project.category}</p>
+              <div className="w-8 h-0.5 bg-white/20 rounded" />
+            </div>
+          </>
+        )}
 
         {/* Status badge */}
         <div className={`absolute top-4 right-4 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
@@ -76,7 +81,7 @@ function ProjectCard({ project, index }) {
       <div className="p-6">
         <div className="flex items-start justify-between gap-3 mb-3">
           <h3 className="font-bold text-slate-900 text-base leading-tight group-hover:text-red-600 transition-colors">
-            {project.title}
+            {project.id.toUpperCase()}
           </h3>
           <span className={`shrink-0 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${colors.bg} ${colors.text} border ${colors.border}`}>
             {project.category}
@@ -99,7 +104,7 @@ function ProjectCard({ project, index }) {
         </p>
 
         <Link
-          to={`/projects/${project.slug}`}
+          to={`/projects/${project.id}`}
           className="flex items-center gap-1.5 text-xs font-semibold text-red-600 hover:text-red-700 transition-colors"
         >
           View Project

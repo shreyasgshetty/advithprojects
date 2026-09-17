@@ -6,9 +6,8 @@ import { getProject } from '../../data/projects'
 const EXPO = [0.16, 1, 0.3, 1]
 
 const PLACEHOLDER_GRADIENTS = {
-  residential: 'from-red-900 to-slate-900',
-  commercial: 'from-amber-900 to-slate-900',
   architecture: 'from-blue-900 to-slate-900',
+  construction: 'from-amber-900 to-slate-900',
   interiors: 'from-rose-900 to-slate-900',
 }
 
@@ -28,8 +27,8 @@ function rev(delay = 0) {
 }
 
 export default function ProjectDetail() {
-  const { slug } = useParams()
-  const project = getProject(slug)
+  const { id } = useParams()
+  const project = getProject(id)
 
   if (!project) return <Navigate to="/projects" replace />
 
@@ -39,6 +38,14 @@ export default function ProjectDetail() {
     <div className="antialiased">
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className={`relative overflow-hidden bg-gradient-to-br ${gradient} py-24 lg:py-36`}>
+        {/* Cover photo (when available) — sits below gradient overlay */}
+        {project.coverImage && (
+          <img
+            src={project.coverImage}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+          />
+        )}
         <div
           className="absolute inset-0 opacity-10"
           style={{
@@ -75,7 +82,7 @@ export default function ProjectDetail() {
             className="text-5xl sm:text-6xl font-bold text-white leading-[1.1] tracking-tight mb-6"
             {...rev(0.1)}
           >
-            {project.title}
+            {project.id.toUpperCase()}
           </motion.h1>
 
           <motion.div className="flex flex-wrap items-center gap-5 text-sm text-white/60 mb-8" {...rev(0.18)}>
@@ -123,6 +130,24 @@ export default function ProjectDetail() {
                   ))}
                 </ul>
               </motion.div>
+
+              {/* Gallery — only shown when images are provided */}
+              {project.images && project.images.length > 0 && (
+                <motion.div {...rev(0.26)}>
+                  <h2 className="text-2xl font-bold text-slate-900 mb-5">Project Gallery</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.images.map((src, i) => (
+                      <div key={i} className="rounded-xl overflow-hidden bg-slate-100 aspect-[4/3]">
+                        <img
+                          src={src}
+                          alt={`${project.id.toUpperCase()} — photo ${i + 1}`}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
 
               {/* Services used */}
               <motion.div {...rev(0.18)}>
