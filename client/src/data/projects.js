@@ -1,124 +1,252 @@
 /**
  * Projects data — structured for future backend API replacement.
- * All names, locations, and descriptions are clearly demo/representative
- * content — no fabricated client names, costs, or verifiable statistics.
+ *
+ * CATEGORIES (only these three are valid):
+ *   'architecture'  — architectural design, planning, documentation
+ *   'construction'  — civil/structural construction works
+ *   'interiors'     — interior design and fit-out
+ *
+ * Each project has ONE primary category.
+ * A project may involve multiple services (architecture, construction, interiors).
+ *
+ * STATUS: 'completed' | 'ongoing'
+ *
+ * IDENTIFIER
+ * ─────────────────────────────────────────────────────────────────────────────
+ * id  {string}  — the single identifier used for:
+ *                   • UI display  (shown as uppercase, e.g. AP-001)
+ *                   • URL         (/projects/ap-001)
+ *                   • Lookup      getProject('ap-001')
+ *                   • Image folder (public/projects/{category}/ap-001/)
+ *
+ * There is NO title and NO slug field.
+ *
+ * IMAGE FIELDS
+ * ─────────────────────────────────────────────────────────────────────────────
+ * coverImage  {string|null}   — path to the hero/card cover image.
+ *                               Served from /public, e.g. '/projects/architecture/ap-001/cover.jpg'
+ *
+ * images      {string[]}      — ordered gallery images for the detail page.
+ *                               Same path convention: '/projects/{category}/{id}/01.jpg'
+ *
+ * To add real photos:
+ *   1. Drop files into  client/public/projects/{category}/{id}/
+ *   2. Set coverImage and images paths below accordingly.
+ *   3. Remove the null / empty-array placeholders.
  */
 
 export const projects = [
+  // ── ARCHITECTURE ──────────────────────────────────────────────────────────
   {
-    id: 'ap-001',
-    title: 'Modern Residence — Villa Design',
-    slug: 'modern-villa-design',
-    category: 'residential',
-    services: ['construction', 'architecture', 'interiors'],
-    status: 'completed',
-    location: 'Bangalore, Karnataka',
-    area: '3,800 sq ft',
-    scope: 'Complete design and construction of a contemporary 4BHK villa including architectural drawings, structural work, and full interior fit-out.',
-    description:
-      'A contemporary family villa designed to balance openness and privacy. The project encompasses site planning, architectural design, structural construction, and complete turnkey interior execution.',
-    highlights: ['Open-plan living areas', 'Integrated landscape design', 'Passive ventilation strategy', 'Custom interior joinery'],
-    image: null,
-    color: 'red',
-  },
-  {
-    id: 'ap-002',
-    title: 'Commercial Office Complex',
-    slug: 'commercial-office-complex',
-    category: 'commercial',
-    services: ['construction', 'architecture'],
-    status: 'completed',
-    location: 'Mysore, Karnataka',
-    area: '12,000 sq ft',
-    scope: 'Multi-floor commercial building including full architectural documentation, structural construction, and external envelope works.',
-    description:
-      'A contemporary commercial office complex designed for operational efficiency and architectural presence. The project involved full architectural documentation and complete structural construction.',
-    highlights: ['Structural RCC framing', 'Modern glass facade', 'Underground parking', 'Energy-efficient design'],
-    image: null,
-    color: 'amber',
-  },
-  {
-    id: 'ap-003',
-    title: 'Luxury Apartment Interior',
-    slug: 'luxury-apartment-interior',
-    category: 'interiors',
-    services: ['interiors'],
-    status: 'completed',
-    location: 'Bangalore, Karnataka',
-    area: '2,200 sq ft',
-    scope: 'Complete interior design and turnkey execution for a high-end 3BHK apartment including custom furniture and lighting design.',
-    description:
-      'A refined luxury interior combining contemporary aesthetics with warm material choices. The project involved complete space planning, custom cabinetry, curated material selection, and full turnkey execution.',
-    highlights: ['Custom walnut joinery', 'Layered lighting design', 'Premium stone finishes', 'Bespoke furniture'],
-    image: null,
-    color: 'rose',
-  },
-  {
-    id: 'ap-004',
-    title: 'Architectural Residence Study',
-    slug: 'architectural-residence-study',
+    id: 'ap-ckm2025-01',
     category: 'architecture',
     services: ['architecture'],
-    status: 'ongoing',
-    location: 'Hubli, Karnataka',
-    area: '4,500 sq ft',
-    scope: 'Full architectural design documentation including concept development, floor plans, elevations, and 3D visualization for a contemporary home.',
+    status: 'completed',
+    location: 'Chikkamagaluru, Karnataka',
+    scope:
+      'Complete architectural design documentation including concept development, floor plans, sections, elevations, and 3D visualisation for a contemporary three-bedroom house.',
     description:
-      'An ongoing architectural design commission for a large contemporary residence. The project explores contextual design, internal spatial planning, and contemporary elevation expression.',
-    highlights: ['Contextual design approach', 'Open courtyard strategy', '3D visualization package', 'Regulatory documentation'],
-    image: null,
-    color: 'amber',
+      'A contemporary family house designed to balance openness and privacy. The project encompasses site planning, spatial organisation, and a full set of architectural drawings from concept through to construction documentation.',
+    highlights: [
+      'Open-plan living and dining design',
+      'Passive ventilation and natural-light strategy',
+      'Integrated landscape coordination',
+      'Complete working drawing set',
+    ],
+    // PLACEHOLDER — replace with real photo paths when available
+    coverImage: '/projects/architecture/ap-ckm2025-01/cover.jpeg',
+    images: ['/projects/architecture/ap-ckm2025-01/cover.jpeg'],
   },
   {
-    id: 'ap-005',
-    title: 'Row House Development',
-    slug: 'row-house-development',
-    category: 'residential',
+    id: 'ap-ckm2024-01',
+    category: 'construction',
     services: ['construction', 'architecture'],
     status: 'completed',
-    location: 'Karnataka',
-    area: '1,800 sq ft per unit',
-    scope: 'Design and construction of a series of contemporary row-house units including architectural planning and complete structural works.',
+    location: 'Chikkamagaluru, Karnataka',
+    scope:
+      'Architectural planning and design for a nature-focused homestay, including building layout, roof design, exterior detailing, traditional architectural elements, and coordination of the overall site design.',
     description:
-      'A series of contemporary row-house units planned for efficient spatial use and consistent quality across units. Each home features clean architectural expression and durable construction.',
-    highlights: ['Consistent architectural language', 'Efficient unit planning', 'Structural quality finish', 'Low maintenance design'],
-    image: null,
-    color: 'red',
+      'A homestay designed to blend traditional architectural character with its natural surroundings. The project features sloped tiled roofs, open corridors with detailed wooden columns, landscaped courtyards, and a spacious outdoor setting surrounded by greenery.',
+    highlights: [
+      'Nature-integrated homestay design',
+      'Traditional tiled roof architecture',
+      'Detailed wooden columns and covered corridors',
+      'Courtyard and landscaped spaces',
+      'Harmonious integration with the surrounding landscape',
+    ],
+    // PLACEHOLDER — replace with real photo paths when available
+    coverImage: '/projects/construction/ap-ckm2024-01/cover.jpeg',
+    images: ['/projects/construction/ap-ckm2024-01/cover.jpeg', '/projects/construction/ap-ckm2024-01/1.jpeg', '/projects/construction/ap-ckm2024-01/2.jpeg', '/projects/construction/ap-ckm2024-01/3.jpeg'],
   },
   {
-    id: 'ap-006',
-    title: 'Commercial Interior Fit-out',
-    slug: 'commercial-interior-fitout',
-    category: 'interiors',
-    services: ['interiors'],
+    id: 'ap-ckm2025-01',
+
+    category: 'construction',
+
+    services: ['architecture', 'construction'],
+
     status: 'completed',
-    location: 'Bangalore, Karnataka',
-    area: '3,500 sq ft',
-    scope: 'Complete interior design and execution for a commercial office environment including workstation design, meeting rooms, and branded reception areas.',
+
+    location: 'Chikkamagaluru, Karnataka',
+
+    scope:
+      'Complete architectural planning and construction of a residential house, including floor planning, elevation design, exterior finishes, interior layout coordination, electrical and plumbing coordination, and overall construction execution.',
+
     description:
-      'A complete commercial office interior focusing on productivity, brand expression, and spatial quality. The project involved detailed space planning, furniture selection, lighting design, and full site execution.',
-    highlights: ['Activity-based work zones', 'Branded reception design', 'Acoustic solutions', 'Ergonomic furniture specification'],
-    image: null,
-    color: 'rose',
+      'A modern residential house designed with a clean contemporary elevation and functional living spaces. The project combines architectural planning with end-to-end construction, featuring a structured facade, spacious balcony, landscaped side courtyard, modern kitchen, and carefully coordinated interior and exterior finishes.',
+
+    highlights: [
+      'Contemporary residential architecture',
+
+      'Complete construction execution',
+
+      'Modern facade with textured exterior finishes',
+
+      'Spacious balcony and landscaped courtyard',
+
+      'Functional modular kitchen and interior spaces',
+
+      'Architectural and construction coordination',
+    ],
+
+    // PLACEHOLDER — replace with real photo paths when available
+    coverImage: '/projects/construction/ap-ckm2025-01/cover.jpeg', // '/projects/architecture/ap-003/cover.jpg'
+    images: ['/projects/construction/ap-ckm2025-01/cover.jpeg', '/projects/construction/ap-ckm2025-01/1.jpeg', '/projects/construction/ap-ckm2025-01/2.jpeg', '/projects/construction/ap-ckm2025-01/3.jpeg'],       // ['/projects/architecture/ap-003/01.jpg', ...]
   },
+
+  // ── CONSTRUCTION ──────────────────────────────────────────────────────────
+  {
+
+    id: 'ap-mys2024-01',
+
+    category: 'construction',
+
+    services: ['construction'],
+
+    status: 'completed',
+
+    location: 'Mysore, Karnataka',
+
+    scope:
+      'Complete construction of a multi-level residential house, including structural execution, masonry, exterior finishing, entrance development, and overall site execution.',
+
+    description:
+      'A contemporary multi-level residential house constructed with a clean and modern exterior. The project features layered elevations, textured wall finishes, spacious balconies, a defined entrance, and detailed exterior finishing.',
+
+    highlights: [
+      'Multi-level residential construction',
+
+      'Modern exterior elevation execution',
+
+      'Textured exterior wall finishes',
+
+      'Spacious balconies and covered areas',
+
+      'Detailed entrance and exterior finishing',
+    ],
+
+    // PLACEHOLDER — replace with real photo paths when available
+    coverImage: '/projects/construction/ap-mys2024-01/cover.jpeg', // '/projects/construction/ap-004/cover.jpg'
+    images: ['/projects/construction/ap-mys2024-01/cover.jpeg'],       // ['/projects/construction/ap-004/01.jpg', ...]
+  },
+
+  {
+    id: 'ap-ckm2025-02',
+
+    category: 'interiors',
+
+    services: ['interiors'],
+
+    status: 'completed',
+
+    location: 'Chikkamagaluru, Karnataka',
+    scope:
+      'Interior design and execution for a residential home, including modular kitchen, living room TV unit, storage cabinetry, wall finishes, ceiling detailing, and coordinated interior elements.',
+
+    description:
+      'A modern residential interior designed with a clean and refined aesthetic. The spaces feature warm wood finishes, marble-inspired surfaces, built-in cabinetry, a contemporary modular kitchen, and a coordinated living room with a custom TV unit and storage solutions.',
+
+    highlights: [
+      'Modern residential interior design',
+
+      'Custom modular kitchen',
+
+      'Built-in storage and cabinetry',
+
+      'Contemporary TV unit and wall design',
+
+      'Marble-inspired finishes and detailing',
+
+      'Clean false ceiling and lighting design',
+    ],
+    // PLACEHOLDER — replace with real photo paths when available
+    coverImage: "/projects/interior/ap-ckm2025-02/cover.jpeg", // '/projects/construction/ap-005/cover.jpg'
+    images: ["/projects/interior/ap-ckm2025-02/cover.jpeg", '/projects/interior/ap-ckm2025-02/1.jpeg'],       // ['/projects/construction/ap-005/01.jpg', ...]
+  },
+  {
+
+    id: 'ap-bng2025-01',
+
+    category: 'interiors',
+
+    services: ['architecture', 'interiors'],
+
+    status: 'completed',
+
+    location: 'Bangalore, Karnataka',
+
+    area: '',
+
+    scope:
+      'Architectural and interior design for a contemporary residential space, including spatial planning, interior layout, custom furniture design, ceiling treatment, lighting design, material selection, and overall aesthetic coordination.',
+
+    description:
+      'A contemporary residential space designed with a warm, sophisticated character. The interiors combine rich wood finishes, textured walls, integrated lighting, custom furniture, and carefully planned spatial elements to create a cohesive and refined living and workspace environment.',
+
+    highlights: [
+      'Contemporary architectural and interior design',
+
+      'Custom wood-finished furniture and wall panelling',
+
+      'Integrated ambient and accent lighting',
+
+      'Detailed ceiling and spatial treatments',
+
+      'Warm, cohesive material palette',
+
+      'Functional living and workspace planning',
+    ],
+    // PLACEHOLDER — replace with real photo paths when available
+    coverImage: "/projects/interior/ap-bng2025-01/cover.jpeg", // '/projects/construction/ap-006/cover.jpg'
+    images: ["/projects/interior/ap-bng2025-01/cover.jpeg", '/projects/interior/ap-bng2025-01/1.jpeg', '/projects/interior/ap-bng2025-01/2.jpeg'],       // ['/projects/construction/ap-006/01.jpg', ...]
+  },
+
+
 ]
 
 /**
- * Filter helpers — each accepts the projects array for testability.
- * @param {string} category - 'all' | 'residential' | 'commercial' | 'architecture' | 'interiors' | 'completed' | 'ongoing'
+ * Filter helpers.
+ *
+ * Valid filter values:
+ *   'all' | 'architecture' | 'construction' | 'interiors' | 'completed' | 'ongoing'
+ *
+ * @param {string} category
+ * @returns {Array}
  */
 export function filterProjects(category = 'all') {
   if (category === 'all') return projects
   if (category === 'completed' || category === 'ongoing') {
     return projects.filter((p) => p.status === category)
   }
-  return projects.filter((p) => p.category === category || p.services.includes(category))
+  return projects.filter((p) => p.category === category)
 }
 
 /**
- * Get a single project by slug.
- * @param {string} slug
+ * Get a single project by id.
+ * @param {string} id  e.g. 'ap-001'
+ * @returns {object|null}
  */
-export function getProject(slug) {
-  return projects.find((p) => p.slug === slug) ?? null
+export function getProject(id) {
+  return projects.find((p) => p.id === id) ?? null
 }
+
