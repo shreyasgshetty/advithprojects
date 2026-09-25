@@ -6,7 +6,6 @@ import logoImg from '../../assets/logo.webp'
 import MobileNavigation from './MobileNavigation'
 
 const EXPO = [0.16, 1, 0.3, 1]
-const EASE = [0.22, 1, 0.36, 1]
 
 const serviceDropdownItems = [
   {
@@ -49,34 +48,8 @@ const itemVariants = {
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
-  const [visible, setVisible] = useState(true)
-  const lastScrollY = useRef(0)
   const dropdownRef = useRef(null)
   const navigate = useNavigate()
-
-  // Hide on scroll down, show on scroll up
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      // Always show when near the very top of the page
-      if (currentScrollY < 60) {
-        setVisible(true)
-      } else if (currentScrollY > lastScrollY.current + 6) {
-        // Scrolling down -> hide navbar (unless mobile menu or dropdown is active)
-        if (!mobileMenuOpen) {
-          setVisible(false)
-          setServicesOpen(false)
-        }
-      } else if (currentScrollY < lastScrollY.current - 6) {
-        // Scrolling up -> reveal navbar
-        setVisible(true)
-      }
-      lastScrollY.current = currentScrollY
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [mobileMenuOpen])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -105,19 +78,7 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
-        className="sticky top-0 z-40"
-        initial={{ y: 0 }}
-        animate={{ y: visible ? 0 : '-100%' }}
-        transition={{ duration: 0.32, ease: EXPO }}
-      >
-        {/* Navbar background */}
-        <motion.div
-          className="absolute inset-0 bg-white/90 backdrop-blur-lg border-b border-slate-100"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.5, ease: EASE }}
-        />
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100">
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Brand Logo */}
@@ -273,7 +234,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       <MobileNavigation
         isOpen={mobileMenuOpen}

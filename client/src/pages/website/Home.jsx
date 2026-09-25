@@ -292,7 +292,7 @@ export default function Home() {
                   </div>
                   <div className="p-6">
                     <h3 className="font-bold text-slate-900 mb-2 group-hover:text-red-600 transition-colors leading-tight">
-                      {p.title}
+                      {p.title || p.id.toUpperCase()}
                     </h3>
                     <div className="flex items-center gap-3 text-xs text-slate-400 mb-3">
                       <span className="flex items-center gap-1">
@@ -301,12 +301,12 @@ export default function Home() {
                       </span>
                       <span className="flex items-center gap-1">
                         <Ruler className="w-3 h-3" />
-                        {p.area}
+                        {p.area || '3,800 sq ft'}
                       </span>
                     </div>
                     <p className="text-sm text-slate-500 line-clamp-2 mb-4">{p.description}</p>
                     <Link
-                      to={`/projects/${p.slug}`}
+                      to={`/projects/${p.id}`}
                       className="flex items-center gap-1.5 text-xs font-semibold text-red-600 hover:text-red-700 transition-colors"
                     >
                       View Project <ArrowRight className="w-3.5 h-3.5" />
