@@ -1,39 +1,3 @@
-/**
- * Projects data — structured for future backend API replacement.
- *
- * CATEGORIES (only these three are valid):
- *   'architecture'  — architectural design, planning, documentation
- *   'construction'  — civil/structural construction works
- *   'interiors'     — interior design and fit-out
- *
- * Each project has ONE primary category.
- * A project may involve multiple services (architecture, construction, interiors).
- *
- * STATUS: 'completed' | 'ongoing'
- *
- * IDENTIFIER
- * ─────────────────────────────────────────────────────────────────────────────
- * id  {string}  — the single identifier used for:
- *                   • UI display  (shown as uppercase, e.g. AP-001)
- *                   • URL         (/projects/ap-001)
- *                   • Lookup      getProject('ap-001')
- *                   • Image folder (public/projects/{category}/ap-001/)
- *
- * There is NO title and NO slug field.
- *
- * IMAGE FIELDS
- * ─────────────────────────────────────────────────────────────────────────────
- * coverImage  {string|null}   — path to the hero/card cover image.
- *                               Served from /public, e.g. '/projects/architecture/ap-001/cover.jpg'
- *
- * images      {string[]}      — ordered gallery images for the detail page.
- *                               Same path convention: '/projects/{category}/{id}/01.jpg'
- *
- * To add real photos:
- *   1. Drop files into  client/public/projects/{category}/{id}/
- *   2. Set coverImage and images paths below accordingly.
- *   3. Remove the null / empty-array placeholders.
- */
 
 export const projects = [
   // ── ARCHITECTURE ──────────────────────────────────────────────────────────
