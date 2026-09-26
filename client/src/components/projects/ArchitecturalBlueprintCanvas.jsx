@@ -57,7 +57,7 @@ function ArchitecturalBlueprintCanvas({ project, className = '' }) {
       <div className="absolute top-3.5 left-6 right-6 flex items-center justify-between text-[9px] tracking-widest uppercase text-white/40">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-red-500/80 animate-pulse" />
-          DWG // {id}
+          {id}
         </span>
         <span>SCALE 1:100</span>
       </div>
