@@ -101,7 +101,7 @@ function ProjectCard({ project, index = 0, priority = false }) {
           {/* Typology and Location Ribbon */}
           <div className="flex items-center justify-between text-xs font-mono text-slate-500 mb-2">
             <span className="text-[11px] uppercase tracking-wider text-slate-400 font-medium">
-              {project.category.toUpperCase()} // RESIDENTIAL
+              {project.category.toUpperCase()}
             </span>
             <span className="flex items-center gap-1 font-medium text-slate-600">
               <Ruler className="w-3 h-3 text-slate-400" />

@@ -9,64 +9,71 @@ function ProjectStats() {
   const shouldReduceMotion = useReducedMotion()
   const stats = calculateProjectStats(projects)
 
-  const STATS_DATA = [
+  const METRICS = [
     {
-      label: 'TOTAL COMMISSIONS',
-      value: stats.total,
+      num: stats.total,
+      unit: 'Commissions',
+      label: 'Portfolio Archive',
       detail: `${stats.completed} Completed · ${stats.ongoing} Ongoing`,
-      index: '01',
+      borderClass: 'border-slate-950',
     },
     {
-      label: 'INTEGRATED DISCIPLINES',
-      value: `${stats.disciplines} Disciplines`,
+      num: stats.disciplines,
+      unit: 'Disciplines',
+      label: 'Integrated Scope',
       detail: 'Architecture · Civil · Interiors',
-      index: '02',
+      borderClass: 'border-slate-300',
     },
     {
-      label: 'REGIONAL FOOTPRINT',
-      value: stats.regionsCount,
-      detail: 'Karnataka Service Corridor',
-      index: '03',
+      num: stats.regionsCount,
+      unit: 'Districts',
+      label: 'Active Geography',
+      detail: stats.locationsList || 'Karnataka State',
+      borderClass: 'border-slate-300',
     },
     {
-      label: 'RESPONSIBILITY MATRIX',
-      value: '100% Turnkey',
-      detail: 'Single Accountability Model',
-      index: '04',
+      num: '100%',
+      unit: 'Direct',
+      label: 'Accountability Model',
+      detail: 'Single Coordinated Team',
+      borderClass: 'border-red-600',
     },
   ]
 
   return (
-    <div className="bg-[#F8F9FA] border-b border-slate-200 relative select-none">
+    <section className="bg-white border-b border-slate-200 py-7 sm:py-8 select-none">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 py-5 sm:py-6">
-          {STATS_DATA.map((item, i) => (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {METRICS.map((item, i) => (
             <motion.div
               key={item.label}
-              className={`flex flex-col justify-center ${
-                i % 2 === 0 ? 'pr-4 sm:pr-6' : 'pl-4 sm:pl-6'
-              } ${i >= 2 ? 'pt-4 md:pt-0' : 'pb-4 md:pb-0'} ${
-                i > 0 ? 'md:pl-8' : ''
-              } ${i < STATS_DATA.length - 1 ? 'md:pr-8' : ''}`}
+              className={`border-l-2 ${item.borderClass} pl-4 sm:pl-5`}
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
-              animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 + i * 0.08, duration: 0.5, ease: EXPO }}
+              whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-20px' }}
+              transition={{ delay: i * 0.06, duration: 0.45, ease: EXPO }}
             >
-              <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-1">
-                <span>{item.label}</span>
-                <span className="text-red-600/70 font-bold hidden sm:inline">[{item.index}]</span>
-              </div>
-              <div className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 mb-0.5 font-sans">
-                {item.value}
-              </div>
-              <span className="text-[11px] font-mono text-slate-500">
-                {item.detail}
+              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1">
+                {item.label}
               </span>
+
+              <div className="flex items-baseline gap-2 mb-1">
+                <span className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-950 font-sans">
+                  {item.num}
+                </span>
+                <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider">
+                  {item.unit}
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-500 font-sans leading-normal font-normal">
+                {item.detail}
+              </p>
             </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
