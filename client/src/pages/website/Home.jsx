@@ -115,7 +115,7 @@ const testimonials = [
   },
 ]
 
-const featuredProjectIds = ['ap-001', 'ap-002', 'ap-003']
+const featuredProjectIds = ['ap-001', 'ap-004', 'ap-007']
 const featuredProjects = projects.filter((p) => featuredProjectIds.includes(p.id))
 
 const CATEGORY_GRADIENTS = {

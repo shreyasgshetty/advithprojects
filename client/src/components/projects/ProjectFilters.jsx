@@ -26,7 +26,7 @@ export default function ProjectFilters({ activeFilter, onSelectFilter }) {
         <div className="flex items-center justify-between py-2 sm:py-3 overflow-x-auto no-scrollbar gap-2 sm:gap-4">
           <div className="flex items-center gap-1 sm:gap-1.5">
             <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 mr-3 hidden lg:inline-block">
-              INDEX //
+              FILTER:
             </span>
 
             {FILTERS_CONFIG.map((filter) => {
