@@ -13,33 +13,33 @@ function ProjectStats() {
     {
       label: 'TOTAL COMMISSIONS',
       value: stats.total,
+      unit: 'Projects',
       detail: `${stats.completed} Completed · ${stats.ongoing} Ongoing`,
-      index: '01',
     },
     {
-      label: 'INTEGRATED DISCIPLINES',
-      value: `${stats.disciplines} Disciplines`,
+      label: 'CORE DISCIPLINES',
+      value: stats.disciplines,
+      unit: 'Practices',
       detail: 'Architecture · Civil · Interiors',
-      index: '02',
     },
     {
       label: 'REGIONAL FOOTPRINT',
       value: stats.regionsCount,
+      unit: 'Key Regions',
       detail: 'Karnataka Service Corridor',
-      index: '03',
     },
     {
-      label: 'RESPONSIBILITY MATRIX',
-      value: '100% Turnkey',
+      label: 'DELIVERY MODEL',
+      value: '100%',
+      unit: 'Turnkey',
       detail: 'Single Accountability Model',
-      index: '04',
     },
   ]
 
   return (
     <div className="bg-[#F8F9FA] border-b border-slate-200 relative select-none">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 py-5 sm:py-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200/90 py-5 sm:py-6">
           {STATS_DATA.map((item, i) => (
             <motion.div
               key={item.label}
@@ -48,18 +48,22 @@ function ProjectStats() {
               } ${i >= 2 ? 'pt-4 md:pt-0' : 'pb-4 md:pb-0'} ${
                 i > 0 ? 'md:pl-8' : ''
               } ${i < STATS_DATA.length - 1 ? 'md:pr-8' : ''}`}
-              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
               animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 + i * 0.08, duration: 0.5, ease: EXPO }}
+              transition={{ delay: 0.08 + i * 0.06, duration: 0.45, ease: EXPO }}
             >
-              <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-1">
-                <span>{item.label}</span>
-                <span className="text-red-600/70 font-bold hidden sm:inline">[{item.index}]</span>
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 font-sans mb-1.5">
+                {item.label}
+              </span>
+              <div className="flex items-baseline gap-1.5 mb-1">
+                <span className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 font-sans">
+                  {item.value}
+                </span>
+                <span className="text-xs sm:text-sm font-medium text-slate-500 font-sans">
+                  {item.unit}
+                </span>
               </div>
-              <div className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 mb-0.5 font-sans">
-                {item.value}
-              </div>
-              <span className="text-[11px] font-mono text-slate-500">
+              <span className="text-xs text-slate-500 font-sans leading-normal">
                 {item.detail}
               </span>
             </motion.div>
