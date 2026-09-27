@@ -2,14 +2,39 @@ import { useState, memo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, MapPin, Ruler } from 'lucide-react'
 import { projects } from '../../data/projects'
-import {
-  getProjectTitle,
-  getProjectArea,
-  getProjectCover,
-  CATEGORY_LABELS,
-  CATEGORY_SHORT,
-  calculateProjectStats,
-} from '../projects/projectHelpers'
+
+const CATEGORY_LABELS = {
+  architecture: 'Architecture & Planning',
+  construction: 'Civil Construction',
+  interiors: 'Turnkey Interior Design',
+}
+
+const CATEGORY_SHORT = {
+  architecture: 'Architecture',
+  construction: 'Construction',
+  interiors: 'Interiors',
+}
+
+function calculateProjectStats(projectsList = []) {
+  const total = projectsList.length
+  const completed = projectsList.filter((p) => p.status === 'completed').length
+  const ongoing = projectsList.filter((p) => p.status === 'ongoing').length
+  const disciplines = new Set(projectsList.map((p) => p.category)).size
+  const cities = new Set(
+    projectsList
+      .map((p) => (p.location || '').split(',')[0].trim())
+      .filter(Boolean)
+  )
+  const cityCount = cities.size
+  return {
+    total: total < 10 ? `0${total}` : `${total}`,
+    completed: completed < 10 ? `0${completed}` : `${completed}`,
+    ongoing: ongoing < 10 ? `0${ongoing}` : `${ongoing}`,
+    disciplines: disciplines < 10 ? `0${disciplines}` : `${disciplines}`,
+    regionsCount: `${cityCount < 10 ? '0' + cityCount : cityCount}`,
+    locationsList: Array.from(cities).join(' · '),
+  }
+}
 
 function HomeFeaturedProjects() {
   const [hoveredId, setHoveredId] = useState(null)
@@ -81,8 +106,8 @@ function HomeFeaturedProjects() {
                 className="relative aspect-[16/10] overflow-hidden bg-slate-950 block border-b border-slate-200"
               >
                 <img
-                  src={getProjectCover(primaryProject)}
-                  alt={getProjectTitle(primaryProject)}
+                  src={primaryProject.coverImage || null}
+                  alt={primaryProject.id.toUpperCase()}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-104"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
@@ -111,7 +136,7 @@ function HomeFeaturedProjects() {
 
                 <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mb-3 group-hover:text-red-600 transition-colors">
                   <Link to={`/projects/${primaryProject.id}`}>
-                    {getProjectTitle(primaryProject)}
+                  {primaryProject.id.toUpperCase()}
                   </Link>
                 </h3>
 
@@ -120,11 +145,15 @@ function HomeFeaturedProjects() {
                     <MapPin className="w-3.5 h-3.5 text-red-600 shrink-0" />
                     <span>{primaryProject.location}</span>
                   </span>
-                  <span className="text-slate-300">|</span>
-                  <span className="flex items-center gap-1.5">
-                    <Ruler className="w-3.5 h-3.5 text-red-600 shrink-0" />
-                    <span>{getProjectArea(primaryProject)}</span>
-                  </span>
+                  {primaryProject.area?.trim() && (
+                    <>
+                      <span className="text-slate-300">|</span>
+                      <span className="flex items-center gap-1.5">
+                        <Ruler className="w-3.5 h-3.5 text-red-600 shrink-0" />
+                        <span>{primaryProject.area.trim()}</span>
+                      </span>
+                    </>
+                  )}
                 </div>
 
                 <p className="text-sm text-slate-600 font-light leading-relaxed mb-6">
@@ -150,9 +179,9 @@ function HomeFeaturedProjects() {
           {/* ── 2. TWO SUPPORTING PROJECTS (5 Columns) ── */}
           <div className="lg:col-span-5 flex flex-col space-y-8">
             {secondaryProjects.map((project) => {
-              const title = getProjectTitle(project)
-              const area = getProjectArea(project)
-              const coverImg = getProjectCover(project)
+              const title = project.id.toUpperCase()
+              const area = project.area?.trim() || null
+              const coverImg = project.coverImage || null
               const categoryShort = CATEGORY_SHORT[project.category] || project.category
 
               return (
@@ -199,8 +228,12 @@ function HomeFeaturedProjects() {
                         <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 mb-2">
                           <MapPin className="w-3 h-3 text-red-600 shrink-0" />
                           <span>{project.location.split(',')[0]}</span>
-                          <span className="text-slate-300">·</span>
-                          <span>{area}</span>
+                          {area && (
+                            <>
+                              <span className="text-slate-300">·</span>
+                              <span>{area}</span>
+                            </>
+                          )}
                         </div>
                       </div>
 

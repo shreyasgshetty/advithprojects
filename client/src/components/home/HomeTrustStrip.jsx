@@ -2,7 +2,27 @@ import { memo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Compass, Building2, Layers, CheckCircle2 } from 'lucide-react'
 import { projects } from '../../data/projects'
-import { calculateProjectStats } from '../projects/projectHelpers'
+
+function calculateProjectStats(projectsList = []) {
+  const total = projectsList.length
+  const completed = projectsList.filter((p) => p.status === 'completed').length
+  const ongoing = projectsList.filter((p) => p.status === 'ongoing').length
+  const disciplines = new Set(projectsList.map((p) => p.category)).size
+  const cities = new Set(
+    projectsList
+      .map((p) => (p.location || '').split(',')[0].trim())
+      .filter(Boolean)
+  )
+  const cityCount = cities.size
+  return {
+    total: total < 10 ? `0${total}` : `${total}`,
+    completed: completed < 10 ? `0${completed}` : `${completed}`,
+    ongoing: ongoing < 10 ? `0${ongoing}` : `${ongoing}`,
+    disciplines: disciplines < 10 ? `0${disciplines}` : `${disciplines}`,
+    regionsCount: `${cityCount < 10 ? '0' + cityCount : cityCount}`,
+    locationsList: Array.from(cities).join(' · '),
+  }
+}
 
 const EXPO = [0.16, 1, 0.3, 1]
 
