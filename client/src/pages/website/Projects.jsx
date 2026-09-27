@@ -5,7 +5,6 @@ import { ArrowRight } from 'lucide-react'
 import { projects, filterProjects } from '../../data/projects'
 import ProjectsHero from '../../components/projects/ProjectsHero'
 import ProjectArchiveRegister from '../../components/projects/ProjectArchiveRegister'
-import ProjectStats from '../../components/projects/ProjectStats'
 import FeaturedProject from '../../components/projects/FeaturedProject'
 import ProjectCatalogueItem from '../../components/projects/ProjectCatalogueItem'
 import ProjectProcessConnection from '../../components/projects/ProjectProcessConnection'
@@ -40,10 +39,7 @@ export default function Projects() {
       {/* ── 1. Architectural Hero with Dynamic Live Metrics ───────────── */}
       <ProjectsHero totalProjects={projects.length < 10 ? `0${projects.length}` : `${projects.length}`} />
 
-      {/* ── 2. Technical Portfolio Register Metrics Block ────────────── */}
-      <ProjectStats />
-
-      {/* ── 3. Architectural Register Navigation Index (Sticky Filter Bar) ── */}
+      {/* ── 2. Architectural Register Navigation Index (Sticky Filter Bar) ── */}
       <ProjectArchiveRegister activeFilter={activeFilter} onSelectFilter={setActiveFilter} />
 
       {/* ── 4. Structured Construction Portfolio Catalogue ───────────── */}
