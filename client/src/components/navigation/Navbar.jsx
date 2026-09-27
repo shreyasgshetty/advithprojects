@@ -48,8 +48,31 @@ const itemVariants = {
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [navVisible, setNavVisible] = useState(true)
+  const lastScrollY = useRef(0)
   const dropdownRef = useRef(null)
   const navigate = useNavigate()
+
+  // Auto-hide navbar on scroll down, show on scroll up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop
+      if (mobileMenuOpen) return
+
+      if (currentScrollY <= 40) {
+        setNavVisible(true)
+      } else if (currentScrollY > lastScrollY.current + 8) {
+        setNavVisible(false)
+        setServicesOpen(false)
+      } else if (currentScrollY < lastScrollY.current - 8) {
+        setNavVisible(true)
+      }
+      lastScrollY.current = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [mobileMenuOpen])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -78,7 +101,11 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100">
+      <header
+        className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 transition-transform duration-300 ease-in-out ${
+          navVisible ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Brand Logo */}

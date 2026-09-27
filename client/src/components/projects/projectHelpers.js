@@ -72,11 +72,6 @@ export const PROJECT_COVERS = {
   'ap-006': '/projects/construction/ap-mys2024-01/cover.jpeg',
   'ap-007': '/projects/interior/ap-ckm2025-02/cover.jpeg',
   'ap-008': '/projects/interior/ap-bng2025-01/cover.jpeg',
-  'ap-ckm2024-01': '/projects/construction/ap-ckm2024-01/cover.jpeg',
-  'ap-ckm2025-01': '/projects/construction/ap-ckm2025-01/cover.jpeg',
-  'ap-mys2024-01': '/projects/construction/ap-mys2024-01/cover.jpeg',
-  'ap-ckm2025-02': '/projects/interior/ap-ckm2025-02/cover.jpeg',
-  'ap-bng2025-01': '/projects/interior/ap-bng2025-01/cover.jpeg',
 }
 
 /**
