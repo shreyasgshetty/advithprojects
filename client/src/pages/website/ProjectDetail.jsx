@@ -163,7 +163,7 @@ export default function ProjectDetail() {
             <div className="flex items-center gap-3 text-[11px] text-slate-500 font-mono">
               <span className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-                <span>PROJECT OVERVIEW</span>
+                <span>PROJECT {project.id.toUpperCase()}</span>
               </span>
               <span>·</span>
               <span className="font-semibold text-slate-800">
@@ -176,7 +176,7 @@ export default function ProjectDetail() {
           <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-3 mb-4 text-xs font-mono">
               <span className="px-2.5 py-1 bg-red-50 border border-red-200 text-red-700 font-bold uppercase tracking-wider">
-                PROJECT {project.id.toUpperCase()}
+                {project.id.toUpperCase()}
               </span>
               <span className="text-slate-600 uppercase tracking-wider font-semibold">
                 {categoryLabel}
@@ -253,7 +253,7 @@ export default function ProjectDetail() {
             {/* Technical Corner Stamp */}
             <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-slate-950/85 backdrop-blur-sm text-white font-mono text-[10px] uppercase tracking-widest pointer-events-none">
               <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-              <span>{project.id.toUpperCase()}</span>
+              <span>PROJECT {project.id.toUpperCase()}</span>
             </div>
 
             {/* Expand Lightbox Button */}
@@ -345,7 +345,7 @@ export default function ProjectDetail() {
                 <div className="flex items-center justify-between gap-4 mb-2">
                   <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-red-600 font-semibold">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
-                    <span>PROJECT GALLERY</span>
+                    <span>VISUAL DOCUMENTATION</span>
                   </div>
                   <span className="text-xs font-mono text-slate-400">
                     {galleryImages.length} {galleryImages.length === 1 ? 'PLATE' : 'PLATES'}
@@ -580,7 +580,7 @@ export default function ProjectDetail() {
               <div className="flex items-center gap-3 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/10">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                 <span className="tracking-wider uppercase">
-                  PLATE 0{lightboxIndex + 1} OF 0{galleryImages.length}
+                  {project.id.toUpperCase()} · 0{lightboxIndex + 1} OF 0{galleryImages.length}
                 </span>
               </div>
 

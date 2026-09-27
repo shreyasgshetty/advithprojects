@@ -60,7 +60,7 @@ function ProjectProcessConnection() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/[0.05] border border-white/10 text-red-400 font-mono text-xs uppercase tracking-widest mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-              <span>DELIVERY METHODOLOGY</span>
+              <span>PROJECT METHODOLOGY</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">
               From Drawing to Delivery.
@@ -145,7 +145,7 @@ function ProjectProcessConnection() {
             <span className="text-white font-semibold">ONE TEAM. COMPLETE RESPONSIBILITY.</span>
           </div>
           <span className="text-slate-500">
-            ADVITH PROJECTS · INTEGRATED ARCHITECTURE &amp; CIVIL MANAGEMENT
+            ADVITH PROJECTS · INTEGRATED ARCHITECTURE &amp; CIVIL
           </span>
         </div>
       </div>

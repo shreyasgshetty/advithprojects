@@ -45,16 +45,17 @@ function FeaturedProject({ project }) {
       <div className="px-6 py-3.5 bg-[#F9FAFB] border-b border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
         <div className="flex items-center gap-2.5">
           <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
-          <span className="font-bold text-red-600 tracking-wider uppercase text-[11px]">
+          <span className="font-bold text-red-600 tracking-wider">
             FEATURED COMMISSION
           </span>
           <span className="text-slate-300">·</span>
-          <span className="font-bold text-slate-900 tracking-wider uppercase text-[11px]">
+          <span className="font-bold text-slate-900 tracking-widest uppercase">
             {project.id.toUpperCase()}
           </span>
         </div>
 
         <div className="flex items-center gap-4 text-slate-500">
+          <span className="text-slate-300 hidden sm:inline">|</span>
           <span
             className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${isCompleted
                 ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
@@ -97,21 +98,30 @@ function FeaturedProject({ project }) {
               }`}
           />
 
-          {/* Technical Corner Badge */}
+          {/* Corner Drafting Marks */}
+          <div className="absolute top-3 left-3 text-white/40 text-xs font-mono select-none pointer-events-none">+</div>
+          <div className="absolute top-3 right-3 text-white/40 text-xs font-mono select-none pointer-events-none">+</div>
+          <div className="absolute bottom-3 left-3 text-white/40 text-xs font-mono select-none pointer-events-none">+</div>
+
+          {/* Project ID Corner Badge */}
           <div className="absolute top-4 left-5 flex items-center gap-2 px-3 py-1 bg-slate-950/85 backdrop-blur-sm border border-white/10 text-[10px] font-mono tracking-widest uppercase text-white pointer-events-none">
             <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-            <span>{project.id.toUpperCase()}</span>
+            PROJECT {project.id.toUpperCase()}
           </div>
 
           {/* Floating Hover Indicator on Desktop */}
           <div
-            className={`absolute bottom-4 right-4 hidden sm:flex items-center gap-2 px-4 py-2 bg-white text-slate-950 text-xs font-mono font-bold tracking-wider uppercase shadow-lg transition-all duration-300 ${isHovered ? 'translate-y-0 opacity-100 bg-red-600 text-white' : 'translate-y-1 opacity-90'
-              }`}
+            className={`absolute bottom-4 right-4 hidden sm:flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold tracking-wider uppercase shadow-lg transition-all duration-300 pointer-events-none ${
+              isHovered
+                ? 'translate-y-0 opacity-100 bg-red-600 text-white'
+                : 'translate-y-0 opacity-95 bg-slate-900 text-white group-hover:bg-red-600'
+            }`}
           >
             <span>VIEW PROJECT DOSSIER</span>
             <ArrowRight
-              className={`w-3.5 h-3.5 transition-transform duration-200 ${isHovered ? 'translate-x-1' : ''
-                }`}
+              className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                isHovered ? 'translate-x-1' : ''
+              }`}
             />
           </div>
         </Link>

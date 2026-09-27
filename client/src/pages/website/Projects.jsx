@@ -38,16 +38,16 @@ export default function Projects() {
   return (
     <main className="min-h-screen bg-[#FDFDFD] text-slate-900 antialiased selection:bg-red-600 selection:text-white">
       {/* ── 1. Architectural Hero with Dynamic Live Metrics ───────────── */}
-      <ProjectsHero />
+      <ProjectsHero totalProjects={projects.length < 10 ? `0${projects.length}` : `${projects.length}`} />
 
-      {/* ── 2. Architectural Register Navigation Index ────────────────── */}
-      <ProjectArchiveRegister activeFilter={activeFilter} onSelectFilter={setActiveFilter} />
-
-      {/* ── 3. Technical Portfolio Register Metrics Block ────────────── */}
+      {/* ── 2. Technical Portfolio Register Metrics Block ────────────── */}
       <ProjectStats />
 
+      {/* ── 3. Architectural Register Navigation Index (Sticky Filter Bar) ── */}
+      <ProjectArchiveRegister activeFilter={activeFilter} onSelectFilter={setActiveFilter} />
+
       {/* ── 4. Structured Construction Portfolio Catalogue ───────────── */}
-      <section className="py-14 sm:py-18 lg:py-24">
+      <section id="project-catalogue" className="py-14 sm:py-18 lg:py-24">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           {/* Active Classification Header Bar */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-3.5 border-b border-slate-200">
@@ -161,7 +161,7 @@ export default function Projects() {
         <div className="relative max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/[0.04] border border-white/10 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-red-400 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-            <span>COMMISSION CONSULTATION</span>
+            <span>PROJECT CONSULTATION</span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4 leading-tight">

@@ -1,18 +1,61 @@
-import { memo } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { memo, useRef } from 'react'
+import {
+  LayoutGrid,
+  Compass,
+  Building2,
+  Layers,
+  CheckCircle2,
+  Clock,
+} from 'lucide-react'
 import { projects } from '../../data/projects'
 
 const REGISTER_CATEGORIES = [
-  { id: 'all', num: '01', label: 'All', dotColor: 'bg-red-500' },
-  { id: 'architecture', num: '02', label: 'Architecture', dotColor: 'bg-amber-500' },
-  { id: 'construction', num: '03', label: 'Construction', dotColor: 'bg-red-600' },
-  { id: 'interiors', num: '04', label: 'Interiors', dotColor: 'bg-rose-500' },
-  { id: 'completed', num: '05', label: 'Completed', dotColor: 'bg-emerald-500' },
-  { id: 'ongoing', num: '06', label: 'Ongoing', dotColor: 'bg-amber-400 animate-pulse' },
+  {
+    id: 'all',
+    num: '01',
+    label: 'All Projects',
+    icon: LayoutGrid,
+    dotColor: 'bg-red-500',
+  },
+  {
+    id: 'architecture',
+    num: '02',
+    label: 'Architecture',
+    icon: Compass,
+    dotColor: 'bg-amber-500',
+  },
+  {
+    id: 'construction',
+    num: '03',
+    label: 'Construction',
+    icon: Building2,
+    dotColor: 'bg-red-500',
+  },
+  {
+    id: 'interiors',
+    num: '04',
+    label: 'Interiors',
+    icon: Layers,
+    dotColor: 'bg-rose-500',
+  },
+  {
+    id: 'completed',
+    num: '05',
+    label: 'Completed',
+    icon: CheckCircle2,
+    dotColor: 'bg-emerald-500',
+  },
+  {
+    id: 'ongoing',
+    num: '06',
+    label: 'Ongoing',
+    icon: Clock,
+    dotColor: 'bg-amber-500',
+  },
 ]
 
 function ProjectArchiveRegister({ activeFilter, onSelectFilter }) {
-  const shouldReduceMotion = useReducedMotion()
+  const containerRef = useRef(null)
 
   // Dynamically calculate counts per filter
   const getCount = (id) => {
@@ -23,86 +66,93 @@ function ProjectArchiveRegister({ activeFilter, onSelectFilter }) {
     return projects.filter((p) => p.category === id).length
   }
 
+  const handleSelect = (id) => {
+    onSelectFilter(id)
+
+    // If user is scrolled down deep, keep them focused right at the project catalogue
+    const catalogueEl = document.getElementById('project-catalogue')
+    if (catalogueEl) {
+      const rect = catalogueEl.getBoundingClientRect()
+      // If catalogue top is above viewport (user scrolled down), gently scroll to catalogue start
+      if (rect.top < 60) {
+        const targetY = window.scrollY + rect.top - 140
+        if (window.__lenis) {
+          window.__lenis.scrollTo(targetY, { duration: 0.6 })
+        } else {
+          window.scrollTo({ top: targetY, behavior: 'smooth' })
+        }
+      }
+    }
+  }
+
   return (
     <nav
-      aria-label="Project classifications"
-      className="border-b border-slate-200/90 bg-white/95 backdrop-blur-md select-none sticky top-16 z-30 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.03)]"
+      ref={containerRef}
+      className="sticky top-20 z-40 bg-white/95 backdrop-blur-md border-y border-slate-200/80 shadow-2xs select-none transition-shadow"
+      aria-label="Project category filter"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
-        {/* Full-width responsive segmented dock with zero horizontal scroll */}
-        <div className="w-full">
-          <div
-            role="tablist"
-            aria-label="Project classifications"
-            className="w-full grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5 p-1.5 bg-[#F3F4F6] border border-slate-200/90 rounded-2xl shadow-inner"
-          >
-            {REGISTER_CATEGORIES.map((cat) => {
-              const isActive = activeFilter === cat.id
-              const count = getCount(cat.id)
-              const countStr = count < 10 ? `0${count}` : `${count}`
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+        {/* Single row: 6 columns guaranteed in one line */}
+        <div className="grid grid-cols-6 gap-1.5 sm:gap-2 lg:gap-2.5 w-full">
+          {REGISTER_CATEGORIES.map((cat) => {
+            const isActive = activeFilter === cat.id
+            const count = getCount(cat.id)
+            const countStr = count < 10 ? `0${count}` : `${count}`
+            const Icon = cat.icon
 
+            if (isActive) {
               return (
                 <button
                   key={cat.id}
-                  onClick={() => onSelectFilter(cat.id)}
+                  onClick={() => handleSelect(cat.id)}
                   role="tab"
-                  id={`tab-${cat.id}`}
-                  aria-controls={`panel-${cat.id}`}
-                  aria-selected={isActive}
-                  tabIndex={0}
-                  className={`group relative flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-sans font-medium transition-colors duration-200 cursor-pointer text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 ${
-                    isActive
-                      ? 'text-white font-semibold'
-                      : 'text-slate-600 hover:text-slate-950 hover:bg-white/80'
-                  }`}
+                  aria-selected="true"
+                  className="w-full flex items-center justify-center gap-1 sm:gap-1.5 lg:gap-2 px-1.5 sm:px-2.5 lg:px-3.5 py-1.5 rounded-full bg-slate-950 text-white shadow-sm font-medium text-xs sm:text-sm whitespace-nowrap cursor-pointer transition-transform active:scale-[0.98]"
                 >
-                  {/* Sliding Dark Pill Active Background */}
-                  {isActive && (
-                    <motion.div
-                      layoutId={shouldReduceMotion ? undefined : 'activeFilterPill'}
-                      className="absolute inset-0 bg-[#0B1220] rounded-xl shadow-md z-0"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 450,
-                        damping: 35,
-                      }}
-                    />
-                  )}
-
-                  {/* Active Crimson Top Accent Pip */}
-                  {isActive && (
-                    <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-4 sm:w-6 h-0.5 bg-red-500 rounded-full z-10" />
-                  )}
-
-                  {/* Content layer above sliding pill */}
-                  <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 w-full">
-                    {/* Discipline Color Dot Indicator */}
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${cat.dotColor} shrink-0 transition-transform ${
-                        isActive ? 'scale-125' : ''
-                      }`}
-                    />
-
-                    {/* Category Label */}
-                    <span className="truncate tracking-normal">
-                      {cat.label}
-                    </span>
-
-                    {/* Count Pill Badge */}
-                    <span
-                      className={`px-1.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-bold transition-all shrink-0 ${
-                        isActive
-                          ? 'bg-white/15 text-white border border-white/10'
-                          : 'bg-white text-slate-600 border border-slate-200/90 group-hover:border-slate-300'
-                      }`}
-                    >
-                      {countStr}
-                    </span>
+                  {/* Subtle red accent pip matching screenshot */}
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shrink-0" />
+                  <Icon className="w-3.5 h-3.5 text-red-500 shrink-0" />
+                  <span className="font-semibold text-white tracking-tight text-xs sm:text-[13px] truncate">
+                    {cat.label}
+                  </span>
+                  <span className="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-[11px] font-mono font-bold rounded-full bg-slate-800 text-slate-100 ml-0.5 shrink-0">
+                    {countStr}
                   </span>
                 </button>
               )
-            })}
-          </div>
+            }
+
+            return (
+              <button
+                key={cat.id}
+                onClick={() => handleSelect(cat.id)}
+                role="tab"
+                aria-selected="false"
+                className="w-full group flex items-center justify-center gap-1 sm:gap-1.5 lg:gap-2 px-1.5 sm:px-2.5 lg:px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-slate-300 text-slate-700 hover:text-slate-950 font-medium text-xs sm:text-sm whitespace-nowrap cursor-pointer transition-all shadow-2xs hover:shadow-xs active:scale-[0.98]"
+              >
+                {/* Number index prefix */}
+                <span className="text-[10px] font-mono text-slate-400 group-hover:text-slate-500 font-medium shrink-0">
+                  {cat.num}
+                </span>
+
+                {/* Status Dot */}
+                <span className={`w-1.5 h-1.5 rounded-full ${cat.dotColor} shrink-0`} />
+
+                {/* Category Icon */}
+                <Icon className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 shrink-0 transition-colors" />
+
+                {/* Category Label */}
+                <span className="text-slate-700 group-hover:text-slate-900 tracking-tight text-xs sm:text-[13px] truncate">
+                  {cat.label}
+                </span>
+
+                {/* Counter Badge */}
+                <span className="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-[11px] font-mono font-medium rounded-full bg-slate-100 text-slate-600 group-hover:bg-slate-200 group-hover:text-slate-800 transition-colors ml-0.5 shrink-0">
+                  {countStr}
+                </span>
+              </button>
+            )
+          })}
         </div>
       </div>
     </nav>

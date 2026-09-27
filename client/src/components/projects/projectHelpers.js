@@ -12,14 +12,11 @@ export const PROJECT_TITLES = {
   'ap-ckm2025-02': 'Refined Residential Interiors',
   'ap-bng2025-01': 'Contemporary Urban Residence & Workspace',
   'ap-001': 'Contemporary Villa Residence',
-  'ap-002': 'Multi-Storey Commercial Complex',
-  'ap-003': 'Courtyard Villa Residence',
   'ap-004': 'Private Residence Civil Build',
   'ap-005': 'Row-House Residential Community',
   'ap-006': 'Commercial Structural Shell',
   'ap-007': 'Luxury Apartment Interior Fit-Out',
   'ap-008': 'Corporate Workspace Environment',
-  'ap-009': 'Independent Residence Interior Design',
 }
 
 export const CATEGORY_LABELS = {
@@ -70,14 +67,16 @@ export const PROJECT_COVERS = {
   'ap-ckm2025-02': '/projects/interior/ap-ckm2025-02/cover.jpeg',
   'ap-bng2025-01': '/projects/interior/ap-bng2025-01/cover.jpeg',
   'ap-001': '/projects/architecture/ap-ckm2025-01/cover.jpeg',
-  'ap-002': '/projects/architecture/ap-002/cover.jpg',
-  'ap-003': '/projects/architecture/ap-003/cover.jpg',
-  'ap-004': '/projects/construction/ap-004/cover.jpg',
-  'ap-005': '/projects/construction/ap-005/cover.jpg',
-  'ap-006': '/projects/construction/ap-006/cover.jpg',
-  'ap-007': '/projects/interiors/ap-007/cover.jpg',
-  'ap-008': '/projects/interiors/ap-008/cover.jpg',
-  'ap-009': '/projects/interiors/ap-009/cover.jpg',
+  'ap-004': '/projects/construction/ap-ckm2024-01/cover.jpeg',
+  'ap-005': '/projects/construction/ap-ckm2025-01/cover.jpeg',
+  'ap-006': '/projects/construction/ap-mys2024-01/cover.jpeg',
+  'ap-007': '/projects/interior/ap-ckm2025-02/cover.jpeg',
+  'ap-008': '/projects/interior/ap-bng2025-01/cover.jpeg',
+  'ap-ckm2024-01': '/projects/construction/ap-ckm2024-01/cover.jpeg',
+  'ap-ckm2025-01': '/projects/construction/ap-ckm2025-01/cover.jpeg',
+  'ap-mys2024-01': '/projects/construction/ap-mys2024-01/cover.jpeg',
+  'ap-ckm2025-02': '/projects/interior/ap-ckm2025-02/cover.jpeg',
+  'ap-bng2025-01': '/projects/interior/ap-bng2025-01/cover.jpeg',
 }
 
 /**

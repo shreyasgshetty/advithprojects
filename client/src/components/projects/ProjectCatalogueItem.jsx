@@ -100,13 +100,12 @@ function ProjectCatalogueItem({ project, index = 0, priority = false }) {
           <span>{project.id.toUpperCase()}</span>
         </div>
 
-
         {/* Hover Action Pill */}
         <div
-          className={`absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-white text-slate-950 text-xs font-mono font-bold uppercase tracking-wider shadow-sm transition-all duration-300 ${
+          className={`absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white text-xs font-mono font-bold uppercase tracking-wider shadow-md transition-all duration-200 pointer-events-none ${
             isHovered
-              ? 'translate-y-0 opacity-100 bg-red-600 text-white'
-              : 'translate-y-1 opacity-0'
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'
           }`}
         >
           <span>View Dossier</span>
@@ -121,6 +120,9 @@ function ProjectCatalogueItem({ project, index = 0, priority = false }) {
           <div className="flex items-center justify-between text-xs font-mono mb-2">
             <span className={`text-[11px] font-bold uppercase tracking-wider ${accent.text}`}>
               {categoryShort}
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono">
+              {project.year || '2024'}
             </span>
           </div>
 
