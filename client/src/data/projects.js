@@ -60,21 +60,34 @@ export const projects = [
 
   // ── CONSTRUCTION ──────────────────────────────────────────────────────────
   {
-    id: 'ap-004',
-    category: 'construction',
-    services: ['construction'],
+    id: 'ap-ckm2024-01',
+
+    category: 'architecture',
+
+    services: ['architecture'],
+
     status: 'completed',
+
     location: 'Chikkamagaluru, Karnataka',
-    area: '2,600 sq ft',
+
+    area: '',
+
     scope:
-      'Complete civil and structural construction of a contemporary residence including foundation, RCC framing, masonry, roofing, and external finishes.',
+      'Architectural planning and design for a nature-focused homestay, including building layout, roof design, exterior detailing, traditional architectural elements, and coordination of the overall site design.',
+
     description:
-      'A contemporary residential construction project executed to high standards of structural quality and site management. The project covered all civil works from foundation through to finished external envelope.',
+      'A homestay designed to blend traditional architectural character with its natural surroundings. The project features sloped tiled roofs, open corridors with detailed wooden columns, landscaped courtyards, and a spacious outdoor setting surrounded by greenery.',
+
     highlights: [
-      'RCC structural framework',
-      'Quality masonry and plastering',
-      'Roofing and waterproofing',
-      'External finish and site clean-up',
+      'Nature-integrated homestay design',
+
+      'Traditional tiled roof architecture',
+
+      'Detailed wooden columns and covered corridors',
+
+      'Courtyard and landscaped spaces',
+
+      'Harmonious integration with the surrounding landscape',
     ],
     coverImage: '/projects/construction/ap-ckm2024-01/cover.jpeg',
     images: [
@@ -85,21 +98,36 @@ export const projects = [
     ],
   },
   {
-    id: 'ap-005',
+    id: 'ap-ckm2025-01',
+
     category: 'construction',
-    services: ['construction', 'architecture'],
+
+    services: ['architecture', 'construction'],
+
     status: 'completed',
+
     location: 'Chikkamagaluru, Karnataka',
-    area: '1,800 sq ft per unit',
+
+    area: '',
+
     scope:
-      'Design and construction of a series of contemporary row-house units including architectural planning and complete structural works across multiple units.',
+      'Complete architectural planning and construction of a modern multi-level residential house, including floor planning, elevation design, exterior finishes, interior layout coordination, electrical and plumbing coordination, and overall construction execution.',
+
     description:
-      'A series of contemporary row-house units executed with consistent quality and an efficient construction programme. Each unit features clean architectural expression and durable structural construction.',
+      'A modern residential house designed with a clean contemporary elevation and functional living spaces. The project combines architectural planning with end-to-end construction, featuring a structured facade, spacious balcony, landscaped side courtyard, modern kitchen, and carefully coordinated interior and exterior finishes.',
+
     highlights: [
-      'Multi-unit construction programme',
-      'Consistent architectural language across units',
-      'Efficient structural methodology',
-      'Low-maintenance external finishes',
+      'Contemporary residential architecture',
+
+      'Complete construction execution',
+
+      'Modern facade with textured exterior finishes',
+
+      'Spacious balcony and landscaped courtyard',
+
+      'Functional modular kitchen and interior spaces',
+
+      'Architectural and construction coordination',
     ],
     coverImage: '/projects/construction/ap-ckm2025-01/cover.jpeg',
     images: [
@@ -110,43 +138,72 @@ export const projects = [
     ],
   },
   {
-    id: 'ap-006',
+    id: 'ap-mys2024-01',
+
     category: 'construction',
-    services: ['construction'],
+
+    services: ['architecture', 'construction'],
+
     status: 'completed',
-    location: 'Mysore, Karnataka',
-    area: '8,000 sq ft',
+
+    location: 'Mysuru, Karnataka',
+
+    area: '',
+
     scope:
-      'Structural construction of a commercial building including foundation design coordination, RCC framing, brickwork, roofing, and external envelope works.',
+      'Residential house construction with architectural planning, multi-level building execution, exterior elevation development, entrance detailing, and coordination of the overall residential structure.',
+
     description:
-      'A commercial building construction project managed from foundation through to finished shell. The project prioritised structural integrity, schedule adherence, and quality of workmanship.',
+      'A contemporary multi-level residential house featuring a clean modern facade with layered elevations, textured exterior finishes, spacious balconies, and a defined entrance. The design combines functional residential planning with a strong exterior presence.',
+
     highlights: [
-      'Deep foundation and plinth works',
-      'RCC multi-floor framing',
-      'External brick and plaster envelope',
-      'Roofing and waterproofing systems',
+      'Contemporary multi-level residential design',
+
+      'Modern exterior elevation and facade detailing',
+
+      'Spacious balconies and covered areas',
+
+      'Textured wall finishes and architectural lighting',
+
+      'Residential construction execution',
     ],
+
     coverImage: '/projects/construction/ap-mys2024-01/cover.jpeg',
     images: ['/projects/construction/ap-mys2024-01/cover.jpeg'],
   },
 
   // ── INTERIORS ─────────────────────────────────────────────────────────────
   {
-    id: 'ap-007',
+    id: 'ap-ckm2025-02',
+
     category: 'interiors',
+
     services: ['interiors'],
+
     status: 'completed',
+
     location: 'Chikkamagaluru, Karnataka',
-    area: '2,200 sq ft',
+
+    area: '',
+
     scope:
-      'Complete interior design and turnkey execution for a high-end three-bedroom apartment including custom furniture, joinery, lighting design, and material specification.',
+      'Interior design and execution for a residential home, including modular kitchen, living room TV unit, storage cabinetry, wall finishes, ceiling detailing, and coordinated interior elements.',
+
     description:
-      'A refined luxury interior combining contemporary aesthetics with warm material choices. The project involved complete space planning, custom cabinetry, curated material selection, and full turnkey execution.',
+      'A modern residential interior designed with a clean and refined aesthetic. The spaces feature warm wood finishes, marble-inspired surfaces, built-in cabinetry, a contemporary modular kitchen, and a coordinated living room with a custom TV unit and storage solutions.',
+
     highlights: [
-      'Custom walnut joinery and wardrobes',
-      'Layered lighting design',
-      'Premium stone and tile finishes',
-      'Bespoke furniture and styling',
+      'Modern residential interior design',
+
+      'Custom modular kitchen',
+
+      'Built-in storage and cabinetry',
+
+      'Contemporary TV unit and wall design',
+
+      'Marble-inspired finishes and detailing',
+
+      'Clean false ceiling and lighting design',
     ],
     coverImage: '/projects/interior/ap-ckm2025-02/cover.jpeg',
     images: [
@@ -155,21 +212,36 @@ export const projects = [
     ],
   },
   {
-    id: 'ap-008',
+    id: 'ap-bng2025-01',
+
     category: 'interiors',
-    services: ['interiors'],
+
+    services: ['architecture', 'interiors'],
+
     status: 'completed',
-    location: 'Bangalore, Karnataka',
-    area: '3,500 sq ft',
+
+    location: 'Bengaluru, Karnataka',
+
+    area: '',
+
     scope:
-      'Complete interior design and execution for a commercial office environment including workstation design, meeting rooms, reception areas, and branded interior elements.',
+      'Architectural and interior design for a contemporary residential space, including spatial planning, interior layout, custom furniture design, ceiling treatment, lighting design, material selection, and overall aesthetic coordination.',
+
     description:
-      'A complete commercial office interior focused on productivity, brand expression, and spatial quality. The project involved detailed space planning, furniture specification, lighting design, and full site execution.',
+      'A contemporary residential space designed with a warm, sophisticated character. The interiors combine rich wood finishes, textured walls, integrated lighting, custom furniture, and carefully planned spatial elements to create a cohesive and refined living and workspace environment.',
+
     highlights: [
-      'Activity-based work zone planning',
-      'Branded reception and lobby design',
-      'Acoustic treatment solutions',
-      'Ergonomic furniture specification',
+      'Contemporary architectural and interior design',
+
+      'Custom wood-finished furniture and wall panelling',
+
+      'Integrated ambient and accent lighting',
+
+      'Detailed ceiling and spatial treatments',
+
+      'Warm, cohesive material palette',
+
+      'Functional living and workspace planning',
     ],
     coverImage: '/projects/interior/ap-bng2025-01/cover.jpeg',
     images: [

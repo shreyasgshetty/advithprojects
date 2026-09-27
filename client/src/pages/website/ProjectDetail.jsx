@@ -15,15 +15,20 @@ import {
   Maximize2,
 } from 'lucide-react'
 import { getProject, projects } from '../../data/projects'
-import {
-  getProjectTitle,
-  getProjectArea,
-  getProjectCover,
-  CATEGORY_LABELS,
-  CATEGORY_SHORT,
-} from '../../components/projects/projectHelpers'
 import ArchitecturalBlueprintCanvas from '../../components/projects/ArchitecturalBlueprintCanvas'
 import ProjectCatalogueItem from '../../components/projects/ProjectCatalogueItem'
+
+const CATEGORY_LABELS = {
+  architecture: 'Architecture & Planning',
+  construction: 'Civil Construction',
+  interiors: 'Turnkey Interior Design',
+}
+
+const CATEGORY_SHORT = {
+  architecture: 'Architecture',
+  construction: 'Construction',
+  interiors: 'Interiors',
+}
 
 const EXPO = [0.16, 1, 0.3, 1]
 
@@ -47,9 +52,9 @@ export default function ProjectDetail() {
   // Lightbox state
   const [lightboxIndex, setLightboxIndex] = useState(null)
 
-  const title = getProjectTitle(project)
-  const area = getProjectArea(project)
-  const coverImg = getProjectCover(project)
+  const title = project ? project.id.toUpperCase() : ''
+  const area = project?.area?.trim() || null
+  const coverImg = project?.coverImage || null
   const categoryLabel = project ? (CATEGORY_LABELS[project.category] || project.category) : ''
   const isCompleted = project?.status === 'completed'
   const CategoryIcon = project ? (CATEGORY_ICONS[project.category] || Building2) : Building2
@@ -207,12 +212,16 @@ export default function ProjectDetail() {
                 <span className="text-slate-400 text-[10px] uppercase">LOCATION:</span>
                 <span className="font-semibold text-slate-900">{project.location}</span>
               </span>
-              <span className="text-slate-300 hidden sm:inline">|</span>
-              <span className="flex items-center gap-2">
-                <Ruler className="w-3.5 h-3.5 text-red-600 shrink-0" />
-                <span className="text-slate-400 text-[10px] uppercase">COVERED AREA:</span>
-                <span className="font-semibold text-slate-900">{area}</span>
-              </span>
+              {area && (
+                <>
+                  <span className="text-slate-300 hidden sm:inline">|</span>
+                  <span className="flex items-center gap-2">
+                    <Ruler className="w-3.5 h-3.5 text-red-600 shrink-0" />
+                    <span className="text-slate-400 text-[10px] uppercase">COVERED AREA:</span>
+                    <span className="font-semibold text-slate-900">{area}</span>
+                  </span>
+                </>
+              )}
               <span className="text-slate-300 hidden sm:inline">|</span>
               <span className="flex items-center gap-2">
                 <CategoryIcon className="w-3.5 h-3.5 text-red-600 shrink-0" />
@@ -263,7 +272,7 @@ export default function ProjectDetail() {
             </div>
 
             <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm text-white font-mono text-[10px] uppercase tracking-wider pointer-events-none hidden sm:block">
-              {project.location} · {area}
+              {project.location}{area ? ` · ${area}` : ''}
             </div>
           </div>
         </div>
@@ -455,10 +464,12 @@ export default function ProjectDetail() {
                     </span>
                   </div>
 
-                  <div className="flex justify-between items-start pt-3">
-                    <span className="text-slate-400 uppercase tracking-wider">COVERED AREA</span>
-                    <span className="text-slate-900 font-semibold text-right">{area}</span>
-                  </div>
+                  {area && (
+                    <div className="flex justify-between items-start pt-3">
+                      <span className="text-slate-400 uppercase tracking-wider">COVERED AREA</span>
+                      <span className="text-slate-900 font-semibold text-right">{area}</span>
+                    </div>
+                  )}
 
                   <div className="flex justify-between items-start pt-3">
                     <span className="text-slate-400 uppercase tracking-wider">EXECUTION STATUS</span>
@@ -638,7 +649,7 @@ export default function ProjectDetail() {
               className="absolute bottom-4 text-center text-white/60 font-mono text-[11px] tracking-wider uppercase"
               onClick={(e) => e.stopPropagation()}
             >
-              {title} — {project.location} ({area})
+              {title} — {project.location}{area ? ` (${area})` : ''}
             </div>
           </motion.div>
         )}

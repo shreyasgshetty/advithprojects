@@ -2,13 +2,18 @@ import { useState, memo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, MapPin, Ruler, Compass, Building2, Layers } from 'lucide-react'
-import {
-  getProjectTitle,
-  getProjectArea,
-  getProjectCover,
-  CATEGORY_LABELS,
-  CATEGORY_SHORT,
-} from './projectHelpers'
+
+const CATEGORY_LABELS = {
+  architecture: 'Architecture & Planning',
+  construction: 'Civil Construction',
+  interiors: 'Turnkey Interior Design',
+}
+
+const CATEGORY_SHORT = {
+  architecture: 'Architecture',
+  construction: 'Construction',
+  interiors: 'Interiors',
+}
 import ArchitecturalBlueprintCanvas from './ArchitecturalBlueprintCanvas'
 
 const EXPO = [0.16, 1, 0.3, 1]
@@ -25,9 +30,9 @@ function FeaturedProject({ project }) {
 
   if (!project) return null
 
-  const title = getProjectTitle(project)
-  const area = getProjectArea(project)
-  const coverImg = getProjectCover(project)
+  const title = project.id.toUpperCase()
+  const area = project.area?.trim() || null
+  const coverImg = project.coverImage || null
   const categoryLabel = CATEGORY_LABELS[project.category] || project.category
   const isCompleted = project.status === 'completed'
   const CategoryIcon = CATEGORY_ICONS[project.category] || Building2
@@ -156,10 +161,12 @@ function FeaturedProject({ project }) {
               <div className="h-px bg-slate-200/80" />
               <div className="flex items-center justify-between">
                 <span className="text-slate-400 text-[10px] uppercase tracking-wider">COVERED AREA</span>
-                <span className="font-semibold text-slate-900 flex items-center gap-1.5">
-                  <Ruler className="w-3.5 h-3.5 text-red-600 shrink-0" />
-                  {area}
-                </span>
+                {area ? (
+                  <span className="font-semibold text-slate-900 flex items-center gap-1.5">
+                    <Ruler className="w-3.5 h-3.5 text-red-600 shrink-0" />
+                    {area}
+                  </span>
+                ) : null}
               </div>
               <div className="h-px bg-slate-200/80" />
               <div className="flex items-center justify-between">

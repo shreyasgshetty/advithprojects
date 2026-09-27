@@ -2,7 +2,33 @@ import { useState, memo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, MapPin, Ruler } from 'lucide-react'
-import { getProjectTitle, getProjectArea, CATEGORY_SHORT, CATEGORY_ACCENTS } from './projectHelpers'
+
+const CATEGORY_SHORT = {
+  architecture: 'Architecture',
+  construction: 'Construction',
+  interiors: 'Interiors',
+}
+
+const CATEGORY_ACCENTS = {
+  architecture: {
+    badge: 'text-amber-700 bg-amber-50/90 border-amber-200/70',
+    dot: 'bg-amber-500',
+    border: 'hover:border-amber-400',
+    text: 'text-amber-600',
+  },
+  construction: {
+    badge: 'text-red-700 bg-red-50/90 border-red-200/70',
+    dot: 'bg-red-600',
+    border: 'hover:border-red-400',
+    text: 'text-red-600',
+  },
+  interiors: {
+    badge: 'text-rose-700 bg-rose-50/90 border-rose-200/70',
+    dot: 'bg-rose-500',
+    border: 'hover:border-rose-400',
+    text: 'text-rose-600',
+  },
+}
 import ArchitecturalBlueprintCanvas from './ArchitecturalBlueprintCanvas'
 
 const EXPO = [0.16, 1, 0.3, 1]
@@ -11,8 +37,8 @@ function ProjectCard({ project, index = 0, priority = false }) {
   const [isHovered, setIsHovered] = useState(false)
   const shouldReduceMotion = useReducedMotion()
 
-  const title = getProjectTitle(project)
-  const area = getProjectArea(project)
+  const title = project.id.toUpperCase()
+  const area = project.area?.trim() || null
   const categoryShort = CATEGORY_SHORT[project.category] || project.category
   const accents = CATEGORY_ACCENTS[project.category] || CATEGORY_ACCENTS.architecture
   const isCompleted = project.status === 'completed'
@@ -103,10 +129,12 @@ function ProjectCard({ project, index = 0, priority = false }) {
             <span className="text-[11px] uppercase tracking-wider text-slate-400 font-medium">
               {project.category.toUpperCase()} COMMISSION
             </span>
-            <span className="flex items-center gap-1 font-medium text-slate-600">
-              <Ruler className="w-3 h-3 text-slate-400" />
-              {area}
-            </span>
+            {area && (
+              <span className="flex items-center gap-1 font-medium text-slate-600">
+                <Ruler className="w-3 h-3 text-slate-400" />
+                {area}
+              </span>
+            )}
           </div>
 
           {/* Project Title */}
