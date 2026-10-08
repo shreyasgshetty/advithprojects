@@ -1,6 +1,25 @@
 @import "tailwindcss";
 
 @keyframes aboutPulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50%       { opacity: 0;   transform: scale(1.5); }
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

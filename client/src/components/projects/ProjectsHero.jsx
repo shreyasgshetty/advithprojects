@@ -85,69 +85,33 @@ export default function ProjectsHero({ totalProjects = '06' }) {
           </svg>
         </div>
 
-        {/* Main Architectural Statement & Technical Schedule */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
-          <div className="lg:col-span-8">
-            <motion.div
-              className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-red-400 mb-4"
-              {...anim(0.12, 12)}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-              <span>PROJECT ARCHIVE</span>
-            </motion.div>
-
-            <motion.h1
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08] mb-6"
-              {...anim(0.2, 24)}
-            >
-              Spaces built with{' '}
-              <span className="text-red-500 block sm:inline">
-                precision and purpose.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl"
-              {...anim(0.3, 16)}
-            >
-              A documented selection of civil construction, architectural design, and turnkey interior
-              commissions executed by Advith Projects across Karnataka.
-            </motion.p>
-          </div>
-
-          {/* Construction Schedule Specification Card */}
+        {/* Main Architectural Statement */}
+        <div className="max-w-3xl">
           <motion.div
-            className="lg:col-span-4 bg-slate-900/90 border border-slate-800 p-5 sm:p-6 rounded-xl font-mono text-xs"
-            {...anim(0.38, 16)}
+            className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-red-400 mb-4"
+            {...anim(0.12, 12)}
           >
-            <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400">
-              <span className="text-slate-300 font-semibold">SPECIFICATIONS</span>
-            </div>
-
-            <div className="space-y-2.5 text-slate-300">
-              <div className="flex justify-between items-center">
-                <span className="text-slate-500">REGION</span>
-                <span className="text-white font-medium">Karnataka, India</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-500">DISCIPLINES</span>
-                <span className="text-white font-medium">03 Integrated</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-500">EXECUTION MODEL</span>
-                <span className="text-emerald-400 font-medium">Turnkey Civil &amp; Build</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-500">STANDARDS</span>
-                <span className="text-slate-300 font-medium">IS-456 RCC &amp; NBC</span>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-500">
-              <span>SINGLE ACCOUNTABILITY</span>
-              <span className="text-emerald-400 font-semibold">● ACTIVE SITES</span>
-            </div>
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            <span>PROJECT ARCHIVE</span>
           </motion.div>
+
+          <motion.h1
+            className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08] mb-6"
+            {...anim(0.2, 24)}
+          >
+            Spaces built with{' '}
+            <span className="text-red-500 block sm:inline">
+              precision and purpose.
+            </span>
+          </motion.h1>
+
+          <motion.p
+            className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl"
+            {...anim(0.3, 16)}
+          >
+            A documented selection of civil construction, architectural design, and turnkey interior
+            commissions executed by Advith Projects across Karnataka.
+          </motion.p>
         </div>
       </div>
     </section>
