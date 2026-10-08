@@ -17,7 +17,7 @@ const QUALITY_PILLARS = [
   },
   {
     icon: Hammer,
-    title: 'Daily Site Engineer Supervision',
+    title: 'Regular Site Engineer Supervision',
     desc: 'On-site engineering oversight ensures shuttering alignment, plinth level checks, and column plumbness prior to every pour.',
   },
   {

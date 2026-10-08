@@ -142,7 +142,7 @@ function HomeHero() {
               <div className="flex items-center justify-between px-3 py-2 bg-slate-900 text-white font-mono text-[10px] uppercase tracking-wider mb-3">
                 <span className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                  COMMISSION · AP-001
+                  COMMISSION · AP-CKM2026-01
                 </span>
                 <span className="text-slate-400">IS-456 SPECS</span>
               </div>
@@ -161,7 +161,7 @@ function HomeHero() {
                 <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white text-xs font-mono">
                   <div>
                     <p className="text-[10px] text-red-400 uppercase tracking-widest font-semibold">CONTEMPORARY RESIDENTIAL</p>
-                    <p className="font-bold text-sm text-white">Villa Residence Commission</p>
+                    <p className="font-bold text-sm text-white">Duplex Residence Commission</p>
                   </div>
                   <span className="px-2 py-0.5 bg-emerald-500/90 text-white text-[9px] font-bold uppercase tracking-wider">
                     COMPLETED
