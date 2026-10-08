@@ -72,16 +72,14 @@ function ProjectCatalogueItem({ project, index = 0, priority = false }) {
 
         <div className="flex items-center gap-2">
           <span
-            className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider ${
-              isCompleted
-                ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                : 'bg-amber-50 text-amber-800 border border-amber-200'
-            }`}
+            className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider ${isCompleted
+              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+              : 'bg-amber-50 text-amber-800 border border-amber-200'
+              }`}
           >
             <span
-              className={`w-1.5 h-1.5 rounded-full ${
-                isCompleted ? 'bg-emerald-600' : 'bg-amber-500 animate-pulse'
-              }`}
+              className={`w-1.5 h-1.5 rounded-full ${isCompleted ? 'bg-emerald-600' : 'bg-amber-500 animate-pulse'
+                }`}
             />
             {isCompleted ? 'COMPLETED' : 'ONGOING'}
           </span>
@@ -109,9 +107,8 @@ function ProjectCatalogueItem({ project, index = 0, priority = false }) {
 
         {/* Subtle Dark Gradient Overlay */}
         <div
-          className={`absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/15 to-transparent transition-opacity duration-300 pointer-events-none ${
-            isHovered ? 'opacity-90' : 'opacity-40'
-          }`}
+          className={`absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/15 to-transparent transition-opacity duration-300 pointer-events-none ${isHovered ? 'opacity-90' : 'opacity-40'
+            }`}
         />
 
         {/* Technical Corner Stamp */}
@@ -122,11 +119,10 @@ function ProjectCatalogueItem({ project, index = 0, priority = false }) {
 
         {/* Hover Action Pill */}
         <div
-          className={`absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white text-xs font-mono font-bold uppercase tracking-wider shadow-md transition-all duration-200 pointer-events-none ${
-            isHovered
-              ? 'translate-y-0 opacity-100'
-              : 'translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'
-          }`}
+          className={`absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white text-xs font-mono font-bold uppercase tracking-wider shadow-md transition-all duration-200 pointer-events-none ${isHovered
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'
+            }`}
         >
           <span>View Dossier</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -141,9 +137,7 @@ function ProjectCatalogueItem({ project, index = 0, priority = false }) {
             <span className={`text-[11px] font-bold uppercase tracking-wider ${accent.text}`}>
               {categoryShort}
             </span>
-            <span className="text-[10px] text-slate-400 font-mono">
-              {project.year || '2024'}
-            </span>
+
           </div>
 
           {/* Project Title */}
@@ -176,18 +170,15 @@ function ProjectCatalogueItem({ project, index = 0, priority = false }) {
 
         {/* Minimal Bottom Action Link with hairline trace */}
         <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
-            SINGLE ACCOUNTABILITY
-          </span>
+
           <Link
             to={`/projects/${project.id}`}
             className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-slate-900 group-hover:text-red-600 transition-colors"
           >
             <span>VIEW DOSSIER</span>
             <ArrowRight
-              className={`w-3.5 h-3.5 text-red-600 transition-transform duration-200 ${
-                isHovered ? 'translate-x-1' : ''
-              }`}
+              className={`w-3.5 h-3.5 text-red-600 transition-transform duration-200 ${isHovered ? 'translate-x-1' : ''
+                }`}
             />
           </Link>
         </div>
@@ -195,9 +186,8 @@ function ProjectCatalogueItem({ project, index = 0, priority = false }) {
 
       {/* Thin Active Border Highlight on Card Hover */}
       <div
-        className={`absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 transition-opacity duration-300 pointer-events-none ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 transition-opacity duration-300 pointer-events-none ${isHovered ? 'opacity-100' : 'opacity-0'
+          }`}
       />
     </motion.article>
   )

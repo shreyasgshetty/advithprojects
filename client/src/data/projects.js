@@ -38,11 +38,11 @@
 export const projects = [
   // ── ARCHITECTURE ──────────────────────────────────────────────────────────
   {
-    id: 'ap-001',
+    id: 'ap-ckm2026-01',
     category: 'architecture',
     services: ['architecture'],
-    status: 'completed',
-    location: 'Bangalore, Karnataka',
+    status: 'ongoing',
+    location: 'Chikkamagaluru, Karnataka',
     scope:
       'Complete architectural design documentation including concept development, floor plans, sections, elevations, and 3D visualisation for a contemporary four-bedroom villa.',
     description:
@@ -58,19 +58,137 @@ export const projects = [
     images: ['/projects/architecture/ap-ckm2025-01/cover.jpeg'],
   },
 
+  {
+    id: 'ap-ckm2026-02',
+    category: 'architecture',
+    services: ['architecture'],
+    status: 'completed',
+    location: 'Chikkamagaluru, Karnataka',
+    scope:
+      'Complete architectural design for a contemporary multi-level residential house, including spatial planning, facade development, elevation detailing, balcony design, material selection, and overall architectural coordination.',
+    description:
+      'A contemporary multi-level residence designed with a strong modern architectural character. The house features clean geometric forms, a prominent glass-enclosed room, multiple balconies, textured stone cladding, warm wood accents, landscaped areas, and integrated exterior lighting to create a balanced and sophisticated facade.',
+    highlights: [
+      'Contemporary multi-level residential architecture',
+      'Modern geometric facade design',
+      'Glass-enclosed room as a prominent architectural feature',
+      'Multiple balconies and outdoor spaces',
+      'Stone cladding and wood-finish accents',
+      'Integrated landscape and exterior lighting',
+    ],
+    coverImage: '/projects/architecture/ap-ckm2026-02/cover.jpeg',
+    images: [
+      '/projects/architecture/ap-ckm2026-02/cover.jpeg',
+    ],
+  },
+
+  {
+    id: 'ap-ckm2026-03',
+    category: 'architecture',
+    services: ['architecture'],
+    status: 'ongoing',
+    location: 'Chikkamagaluru, Karnataka',
+    scope:
+      'Complete architectural design for a contemporary multi-level residence, including facade development, spatial planning, elevation detailing, balcony design, material selection, and 3D visualisation.',
+    description:
+      'A contemporary multi-level residence designed with a clean and sophisticated architectural language. The facade combines curved geometric elements, textured stone surfaces, wood-finish detailing, glass railings, landscaped balcony spaces, and integrated lighting to create a distinctive modern identity.',
+    highlights: [
+      'Contemporary multi-level residential architecture',
+      'Distinctive curved facade detailing',
+      'Textured stone and wood-finish elements',
+      'Landscaped balcony and terrace spaces',
+      'Glass and metal railing details',
+      'Modern facade lighting and material coordination',
+    ],
+    coverImage: '/projects/architecture/ap-ckm2026-03/cover.jpeg',
+    images: [
+      '/projects/architecture/ap-ckm2026-03/cover.jpeg',
+    ],
+  },
+
+  {
+    id: 'ap-ckm2026-04',
+    category: 'architecture',
+    services: ['architecture'],
+    status: 'completed',
+    location: 'Bengaluru, Karnataka',
+    scope:
+      'Complete architectural design for a contemporary multi-level residential residence, including spatial planning, facade development, elevation detailing, balcony design, material selection, landscape coordination, and 3D visualisation.',
+    description:
+      'A contemporary multi-level residence designed with a bold and elegant architectural character. The facade combines curved balcony forms, textured stone finishes, warm wood accents, vertical metal detailing, landscaped spaces, and integrated lighting to create a refined and distinctive residential identity.',
+    highlights: [
+      'Contemporary multi-level residential architecture',
+      'Curved balcony and facade detailing',
+      'Textured stone and warm wood finishes',
+      'Vertical metal screening elements',
+      'Integrated landscape and terrace greenery',
+      'Layered facade lighting design',
+    ],
+    coverImage: '/projects/architecture/ap-ckm2026-04/cover.jpeg',
+    images: [
+      '/projects/architecture/ap-ckm2026-04/cover.jpeg',
+    ],
+  },
+
+  {
+    id: 'ap-ckm2025-03',
+    category: 'architecture',
+    services: ['architecture'],
+    status: 'completed',
+    location: 'Chikkamagaluru, Karnataka',
+    scope:
+      'Complete architectural design for a contemporary residential residence, including facade development, spatial planning, elevation detailing, balcony design, material selection, landscape coordination, and 3D visualisation.',
+    description:
+      'A contemporary residence designed with a clean and balanced architectural character. The facade combines modern geometric forms, textured stone finishes, warm wood accents, glass railings, screened balcony spaces, and integrated landscaping to create a refined and functional family home.',
+    highlights: [
+      'Contemporary residential architecture',
+      'Modern geometric facade design',
+      'Textured stone and wood-finish elements',
+      'Glass balcony and screened outdoor spaces',
+      'Integrated landscape design',
+      'Functional and visually balanced elevation',
+    ],
+    coverImage: '/projects/architecture/ap-ckm2025-03/cover.jpeg',
+    images: [
+      '/projects/architecture/ap-ckm2025-03/cover.jpeg',
+    ],
+  },
+
+  {
+    id: 'ap-ckm2025-04',
+    category: 'architecture',
+    services: ['architecture'],
+    status: 'completed',
+    location: 'Chikkamagaluru, Karnataka',
+    scope:
+      'Complete architectural design for a contemporary residential house, including facade development, elevation detailing, balcony and terrace design, material selection, landscape coordination, and 3D visualisation.',
+    description:
+      'A contemporary residence designed with a bold yet functional facade. The architectural design combines exposed brick finishes, clean geometric forms, vertical screens, decorative panels, landscaped balconies, and a covered terrace to create a distinctive modern residential character.',
+    highlights: [
+      'Contemporary residential architecture',
+      'Exposed brick facade detailing',
+      'Decorative screens and vertical fins',
+      'Landscaped balconies and terrace spaces',
+      'Covered outdoor living areas',
+      'Modern facade with integrated lighting',
+    ],
+    coverImage: '/projects/architecture/ap-ckm2025-04/cover.jpeg',
+    images: [
+      '/projects/architecture/ap-ckm2025-04/cover.jpeg',
+    ],
+  },
+
   // ── CONSTRUCTION ──────────────────────────────────────────────────────────
   {
     id: 'ap-ckm2024-01',
 
-    category: 'architecture',
+    category: 'construction',
 
-    services: ['architecture'],
+    services: ['construction'],
 
     status: 'completed',
 
     location: 'Chikkamagaluru, Karnataka',
-
-    area: '',
 
     scope:
       'Architectural planning and design for a nature-focused homestay, including building layout, roof design, exterior detailing, traditional architectural elements, and coordination of the overall site design.',
@@ -83,7 +201,7 @@ export const projects = [
 
       'Traditional tiled roof architecture',
 
-      'Detailed wooden columns and covered corridors',
+      'Detailed concrete wooden columns and covered corridors',
 
       'Courtyard and landscaped spaces',
 
@@ -225,10 +343,10 @@ export const projects = [
     area: '',
 
     scope:
-      'Architectural and interior design for a contemporary residential space, including spatial planning, interior layout, custom furniture design, ceiling treatment, lighting design, material selection, and overall aesthetic coordination.',
+      'Architectural and interior design for a contemporary office space, including spatial planning, interior layout, custom furniture design, ceiling treatment, lighting design, material selection, and overall aesthetic coordination.',
 
     description:
-      'A contemporary residential space designed with a warm, sophisticated character. The interiors combine rich wood finishes, textured walls, integrated lighting, custom furniture, and carefully planned spatial elements to create a cohesive and refined living and workspace environment.',
+      'A contemporary office space designed with a warm, sophisticated character. The interiors combine rich wood finishes, textured walls, integrated lighting, custom furniture, and carefully planned spatial elements to create a cohesive and refined living and workspace environment.',
 
     highlights: [
       'Contemporary architectural and interior design',

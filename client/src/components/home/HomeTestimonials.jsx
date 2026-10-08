@@ -7,25 +7,25 @@ const EXPO = [0.16, 1, 0.3, 1]
 const TESTIMONIALS_DATA = [
   {
     quote:
-      'The team’s attention to structural quality and finishing detail exceeded our expectations. Having the architectural planners coordinate directly with the site engineers kept our timeline clear from start to finish.',
-    client: 'Representative Client Account',
-    project: 'Private Residential Construction',
-    location: 'Bangalore, Karnataka',
+      'I really liked how the design came together. The team understood what we were looking for and gave us a practical design that also looked great.',
+    client: 'Deepu',
+    project: 'AP-CKM2024-01',
+    location: 'Chikkamagaluru, Karnataka',
     rating: 5,
   },
   {
     quote:
-      'A genuinely integrated team — the exact standards and materials we reviewed in the architectural drawings were faithfully reflected on-site. There was zero finger-pointing between trades.',
-    client: 'Representative Client Account',
-    project: 'Architecture & Turnkey Interiors',
-    location: 'Mysore, Karnataka',
+      'I am really happy with how the construction was handled. Puneeth personally supervised the work every week and kept us updated on the progress. It was easy to discuss changes and get things sorted as the work went on.',
+    client: 'Prakash',
+    project: 'AP-CKM2024-01',
+    location: 'Chikkamagaluru, Karnataka',
     rating: 5,
   },
   {
     quote:
-      'They managed the project timeline professionally with consistent site reporting. The concrete quality, brickwork alignment, and final finishes met rigorous commercial engineering standards.',
-    client: 'Representative Client Account',
-    project: 'Commercial Structural Shell',
+      'I made quite a few changes along the way, and they were handled well. The design was updated based on my requirements, and the final result came together just the way I wanted.',
+    client: 'Vishu',
+    project: 'AP-CKM2025-03',
     location: 'Chikkamagaluru, Karnataka',
     rating: 5,
   },
@@ -112,11 +112,6 @@ function HomeTestimonials() {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* Ethical Note */}
-        <p className="mt-12 text-[11px] font-mono text-slate-400 text-center">
-          Representative client feedback — specific names &amp; private residential accounts are kept confidential upon request.
-        </p>
       </div>
     </section>
   )
